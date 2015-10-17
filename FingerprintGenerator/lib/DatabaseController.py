@@ -2,8 +2,8 @@ import mysql.connector
 import mysql
 from scikits.audiolab import wavread
 import cPickle
-import pickle
 import MySQLdb
+import features
 
 class DataBaseController:
 
@@ -36,7 +36,7 @@ class DataBaseController:
 
         # DROPS ALL TABLES - for testing
         # print "Droping all tables..."
-        # self.cur.execute("DROP TABLE IF EXISTS SupportedFeatures")
+        self.cur.execute("DROP TABLE IF EXISTS SupportedFeatures")
         # self.cur.execute("DROP TABLE IF EXISTS Data_Features")
         # self.cur.execute("DROP TABLE IF EXISTS Data_Raw")
         # self.cur.execute("DROP TABLE IF EXISTS Genres")
@@ -143,10 +143,49 @@ class DataBaseController:
         WARNING: this is a computationally intensive task. Set paramater computeAll to false if just for testing
         """
 
-        self.cur.
+        self.cur.execute("SELECT feature_name FROM SupportedFeatures WHERE feature_name=%s", (feature_name,))
+        if self.cur.fetchone():
+            print "Feature " + feature_name + " already exists. Doing Nothing."
+            return
+
+        #Insert the new feature into SupportedFeatures table.
+        self.cur.execute("INSERT INTO SupportedFeatures (feature_name) VALUES (%s)", (feature_name,))
+
+        self.conn.commit()
 
         #process all songs
-        pass
+        self.reComputeFeature(feature_name)
+
+
+    def reComputeFeature(self, feature_name):
+        """
+        Recomputes a feature for all songs in the DB.
+        """
+        # Data_Features, Data_Raw, SupportedFeatures
+
+        #delete all existing
+        self.cur.execute("DELETE FROM Data_Features WHERE feature_name=%s", (feature_name,))
+
+
+        self.cur.execute("SELECT song_id FROM Metadata")
+        song_ids = self.cur.fetchall()[0]
+
+        #We split this up on a per-song_id basis so that only one song is in memory at a time.
+        for song_id in song_ids:
+            self.cur.execute("SELECT sample_index, data from Data_Raw WHERE song_id=%s", (song_id,))
+
+            for (sample_index, data) in self.cur:
+                # process feature
+                class_ = getattr(features, feature_name)
+
+                #get input feature
+
+                feature = class_()
+                # insert serialized data to Data_Features
+
+
+
+
 
     def __addFeatureForSong(self, song_id):
         pass
@@ -159,12 +198,14 @@ def main(argv):
 
     ampData, fs, enc = wavread("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/Rap/Eminem-Stan.wav")
 
-    dbControl.addSong(ampData, {
-        "song_name": "Eminem",
-        "artist": "Stan",
-        "length": 0,
-        "genres": ["rap"]
-    })
+    # dbControl.addSong(ampData, {
+    #     "song_name": "Eminem",
+    #     "artist": "Stan",
+    #     "length": 0,
+    #     "genres": ["rap"]
+    # })
+
+    dbControl.addNewFeature("Feature_FreqDom")
 
 
 if __name__ == "__main__":
