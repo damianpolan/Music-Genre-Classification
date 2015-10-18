@@ -1,5 +1,3 @@
-
-
 import cPickle
 
 
@@ -11,13 +9,7 @@ class Feature(object):
 
     # CONSTRUCTOR
     def __init__(self, data):
-        # defines the feature data this feature implementation will use. In the case it is None, raw time domain data will be used. Otherwise, data will be another Feature object.
-        self.inputFeature = self.setInputFeature()
-
-        if self.inputFeature == None or data.__class__.__name__ == self.inputFeature:
-            self.initialize(data)
-        else:
-            raise "Incorrect data type. Expected " + str(self.inputFeature)
+        self.initialize(data)
 
 
     def setInputFeature(self):

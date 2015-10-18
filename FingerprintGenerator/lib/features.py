@@ -10,13 +10,9 @@ class Feature_FreqDom(Feature.Feature):
 
     USES: amplitude vs time data.
     """
-    inputFeature = None
 
     def __init__(self, data):
         Feature.Feature.__init__(self, data)
-
-    def setInputFeature(self):
-        return None #takes in default format (time domain)
 
     def initialize(self, data):
         self.freqData = np.fft.fft(data) #into frequency domain
