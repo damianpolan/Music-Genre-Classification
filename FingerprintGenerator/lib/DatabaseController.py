@@ -12,6 +12,8 @@ class DataBaseController:
     Default DB:
     user='user', password='', host='127.0.0.1', database='fingerprints'
 
+
+    Must call DataBaseController.commit() manually.
     """
 
     # WARNING: Do Not change. Requires a complete re-add of all songs to the database.
@@ -37,7 +39,7 @@ class DataBaseController:
 
         # DROPS ALL TABLES - for testing
         # print "Droping all tables..."
-        self.cur.execute("DROP TABLE IF EXISTS SupportedFeatures")
+        # self.cur.execute("DROP TABLE IF EXISTS SupportedFeatures")
         # self.cur.execute("DROP TABLE IF EXISTS Data_Features")
         # self.cur.execute("DROP TABLE IF EXISTS Data_Raw")
         # self.cur.execute("DROP TABLE IF EXISTS Genres")
@@ -131,8 +133,6 @@ class DataBaseController:
             self.cur.execute("INSERT INTO Data_Raw (song_id, sample_index, data) VALUES (\'" + str(new_song_id) + "\',\'" + str(sample_index) + "\',%s)", (pickled,))
 
         # process features for song
-
-        self.conn.commit()
         print "Successfully added."
 
     # initialize required databases

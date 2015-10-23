@@ -85,11 +85,16 @@ def main(argv):
 
 	ampData, fs, enc = wavread(songFilePath)
 	print len(ampData)
+	newAmpData = []
+	for el in ampData:
+		newAmpData.append(el[0])
 	# print fs #sampling rate
 	# print enc #encoding
 
-	freqData = intoFrequencyDomain(ampData[len(ampData) / 2:len(ampData) / 2 + sampleLength])
+	freqData = intoFrequencyDomain(newAmpData[len(newAmpData) / 2:len(newAmpData) / 2 + sampleLength])
 
+	print freqData
+	return
 	songname = os.path.basename(songFilePath).replace(".wav", "");
 
 	generateGraph_AvT(ampData, outputFolder + "/" + songname + "__AvT.png", name=songname)
