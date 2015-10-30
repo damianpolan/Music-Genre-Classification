@@ -8,19 +8,16 @@ class Feature(object):
     """
 
     # CONSTRUCTOR
-    def __init__(self, data):
-        self.initialize(data)
-
-
-    def setInputFeature(self):
-        raise "Class not implemented. Feature is an abstract class."  
+    def __init__(self, data, useInitialize=True):
+        if(useInitialize):
+            self.initialize(data)
 
     def initialize(self, data):
-        raise "Class not implemented. Feature is an abstract class."        
+        raise "initialize not implemented. Feature is an abstract class."        
 
     def serialize(self):
-        return cPickle.dumps(self)
+        raise "serialize not implemented"
 
     @staticmethod
     def unserialize(serialized):
-        return cPickle.loads(serialized)
+        raise "unserialize not implemented"

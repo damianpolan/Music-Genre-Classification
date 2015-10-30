@@ -4,7 +4,9 @@ from scikits.audiolab import wavread
 import cPickle
 import MySQLdb
 import features
+import tools
 from UserString import MutableString
+
 
 class DataBaseController:
 
@@ -16,18 +18,12 @@ class DataBaseController:
     Must call DataBaseController.commit() manually.
     """
 
-    # WARNING: Do Not change. Requires a complete re-add of all songs to the database.
-    # SUBSAMPLE_MEM = 70000  # the portion of memory to allocate for a data pack. should be at least 70xSUBSAMPLE_COUNT to be safe
-    SUBSAMPLE_COUNT = 10000  # the number of song samples to use in one data item
-
-    # The portion of memory allocated for a feature on each SUBSAMPLE_COUNT of song.
-    # FEATURE_DATA_MEM = 100000
-
-    def __init__(self, user='user', password='', host='127.0.0.1', database='fingerprints'):
+    def __init__(self, workingPath, user='user', password='', host='127.0.0.1', database='fingerprints'):
         self.user = user
         self.password = password
         self.host = host
         self.database = database
+        self.workingPath = workingPath
 
         """ Connect to MySQL database """
 
@@ -39,19 +35,18 @@ class DataBaseController:
 
         # DROPS ALL TABLES - for testing
         # print "Droping all tables..."
-        # self.cur.execute("DROP TABLE IF EXISTS SupportedFeatures")
-        # self.cur.execute("DROP TABLE IF EXISTS Data_Features")
-        # self.cur.execute("DROP TABLE IF EXISTS Data_Raw")
         # self.cur.execute("DROP TABLE IF EXISTS Genres")
-        # self.cur.execute("DROP TABLE IF EXISTS Metadata")
+        # self.cur.execute("DROP TABLE IF EXISTS FeatureData")
+        # self.cur.execute("DROP TABLE IF EXISTS Songs")
 
         print "Creating all tables..."
         # ADD ALL REQUIRED TABLES
-        self.cur.execute("CREATE TABLE IF NOT EXISTS Metadata(\
+        self.cur.execute("CREATE TABLE IF NOT EXISTS Songs(\
                         song_id int AUTO_INCREMENT,\
                         song_name varchar(64),\
                         artist varchar(64),\
-                        length int,\
+                        seconds int,\
+                        relative_path varchar(255),\
                         PRIMARY KEY (song_id)\
                         )")
 
@@ -59,32 +54,25 @@ class DataBaseController:
                         song_id int,\
                         genre varchar(32),\
                         PRIMARY KEY (song_id, genre),\
-                        FOREIGN KEY (song_id) REFERENCES Metadata(song_id)\
+                        FOREIGN KEY (song_id) REFERENCES Songs(song_id)\
                         )")
 
-        self.cur.execute("CREATE TABLE IF NOT EXISTS Data_Raw(\
+        self.cur.execute("CREATE TABLE IF NOT EXISTS FeatureData(\
                         song_id int,\
-                        sample_index int,\
-                        data blob,\
-                        primary key (song_id, sample_index),\
-                        FOREIGN KEY (song_id) REFERENCES Metadata(song_id)\
-                        )")
-
-        self.cur.execute("CREATE TABLE IF NOT EXISTS Data_Features(\
-                        song_id int,\
-                        sample_index int,\
+                        pack_index int,\
                         feature_name varchar(32),\
-                        data blob,\
-                        primary key (song_id, sample_index, feature_name),\
-                        FOREIGN KEY (song_id) REFERENCES Metadata(song_id),\
-                        FOREIGN KEY (song_id, sample_index) REFERENCES Data_Raw(song_id, sample_index)\
+                        pack_size int,\
+                        data LONGBLOB,\
+                        primary key (song_id, pack_index, feature_name, pack_size),\
+                        FOREIGN KEY (song_id) REFERENCES Songs(song_id)\
                         )")
         # sample index is the start index of the data in the original sample data list.
 
-        self.cur.execute("CREATE TABLE IF NOT EXISTS SupportedFeatures(\
-                        feature_name varchar(32),\
-                        primary key (feature_name)\
-                        )")
+        # self.cur.execute("CREATE TABLE IF NOT EXISTS SupportedFeatures(\
+        #                 feature_name varchar(32),\
+        #                 primary key (feature_name)\
+        #                 )")
+
         print "Commiting..."
         self.conn.commit()
         print "Done"
@@ -92,108 +80,91 @@ class DataBaseController:
     def commit(self):
         self.conn.commit()
 
-    def addSong(self, rawData, metadata):
+    def addSong(self, relative_path, song_name, artist, seconds, genres):
+        """
+        Adds a song to the database
         """
 
-        metadata [dict] object format:
-        {
-            "song_name":string,
-            "artist":string,
-            "length":int,         #(seconds)
-            "genres":[]
-        }
-        """
-
-        print "Adding song " + metadata['song_name'] + " - " + metadata['artist'] + " ..."
+        print "Adding song " + song_name + " - " + artist + " ..."
         # check if song already exists on bases of song_name and artist
-        self.cur.execute("SELECT song_name, artist FROM Metadata WHERE song_name=%s AND artist=%s", (metadata['song_name'], metadata['artist']))
+        self.cur.execute("SELECT song_name, artist FROM Songs WHERE song_name=%s AND artist=%s", (song_name, artist))
 
         if self.cur.fetchone():
-            print "Song " + metadata['song_name'] + " - " + metadata['artist'] + " already exists. Not added to database."
+            print "Song " + song_name + " - " + artist + " already exists. Not added to database."
             return
-        # add song metadata to table
-        self.cur.execute("INSERT INTO Metadata (song_name, artist, length) VALUES \
-                            ( \'" + str(metadata['song_name']) + "\',\'" + str(metadata['artist']) + "\',\'" + str(metadata['length']) + "\')")
 
-        # get the song_id
+        # INSERT INTO Songs TABLE
+        self.cur.execute("INSERT INTO Songs (song_name, artist, seconds, relative_path) VALUES (%s, %s, %s, %s)", (song_name, artist, seconds, relative_path))
+
+        # INSERT GENRES FOR THE SONG
+        # get the newly made song_id
         new_song_id = self.cur.lastrowid  # (last mysql generated row id)
+        for genre in genres:
+            self.cur.execute("INSERT INTO Genres (song_id, genre) VALUES (%s, %s)", (new_song_id, genre))
 
-        # add associated genres
-        for genre in metadata['genres']:
-            self.cur.execute("INSERT INTO Genres (song_id, genre) VALUES \
-                            (\'" + str(new_song_id) + "\',\'" + genre + "\')")
+        # we are not process features for the newly added song until they are requested by the learning algorithm.
 
-        # split the song into appropriate samples and add to table
-        for sample_index in range(0, len(rawData), (DataBaseController.SUBSAMPLE_COUNT)):
-            # sample_index will always be the start index of the data
-
-            data = rawData[sample_index:(sample_index + DataBaseController.SUBSAMPLE_COUNT)]
-            pickled = cPickle.dumps(data)  # serialize the data
-            # insert into DB
-            self.cur.execute("INSERT INTO Data_Raw (song_id, sample_index, data) VALUES (\'" + str(new_song_id) + "\',\'" + str(sample_index) + "\',%s)", (pickled,))
-
-        # process features for song
         print "Successfully added."
 
     # initialize required databases
-    def addNewFeature(self, feature_name):
+    def pullFeatureForSong(self, feature_name, song_id, pack_size):
         """
-        Adds a new feature and computes the feature for every song in the database.
-        WARNING: this is a computationally intensive task. Set paramater computeAll to false if just for testing
-        """
+            Returns an array with elements of type <feature_name>. 
 
-        self.cur.execute("SELECT feature_name FROM SupportedFeatures WHERE feature_name=%s", (feature_name,))
-        if self.cur.fetchone():
-            print "Feature " + feature_name + " already exists. Doing Nothing."
-            return
+            The song is split into n number of sample packs. Each sample pack is of size pack_size.
+            The feature is evaluated on each sample pack and filled into the returned array (in same order).
 
-        # Insert the new feature into SupportedFeatures table.
-        self.cur.execute("INSERT INTO SupportedFeatures (feature_name) VALUES (%s)", (feature_name,))
+            If no data is already present in the database for the given pack_size, the feature will be evaluated for the whole song and added to the database.
 
-        # process all songs
-        self.reComputeFeature(feature_name)
-
-    def reComputeFeature(self, feature_name):
-        """
-        Recomputes a feature for all songs in the DB.
+            @param feature_name: the feature to get
+            @param song_id: the song to get the feature for
+            @param pack_size: the size of the packets to split the song into. (-1 to apply the feature to the whole song)dw
         """
 
-        print "Calculating " + feature_name + " for all songs..."
+        # PULL IF FEATURE THAT ALREADY EXISTS
+        self.cur.execute("SELECT data FROM FeatureData WHERE song_id=%s AND feature_name=%s AND pack_size=%s", (song_id, feature_name, pack_size))
 
-        # delete all existing
-        self.cur.execute("DELETE FROM Data_Features WHERE feature_name=%s", (feature_name,))
+   
+        class_ = getattr(features, feature_name) #prepare the class for instanciation
+        packList = []
 
-        self.cur.execute("SELECT song_id, artist, song_name FROM Metadata")
-        song_ids = self.cur.fetchall()
+        row = self.cur.fetchone()
 
-        # We split this up on a per-song_id basis so that only one song is in memory at a time.
-        for song_id, artist, song_name in song_ids:
-            print "Computing " + feature_name + " for " + artist + " - " + song_name
-            self.__addFeatureForSong(song_id, feature_name)
+        if(row): #RETURN THE LIST OF FEATURES
+            while (row):
+                feature = class_.unserialize(row[0])
+                packList.append(feature)
+                row = self.cur.fetchone()
+        else: # NO ELEMENTS FOUND, COMPUTE
+            print "No match found. Creating ..."
+            rawData = self.fetchSongData(song_id) # fetch raw data from file on disk
+            rawChunks = tools.chunks(rawData, pack_size) # Split the song into chunks of size pack_size. this will be processed by the feature
 
-        print "Done."
+            #iterate and create a feature for each one to save to the DB
+            pack_index = 0            
+            for dataPack in rawChunks:
+                feature = class_(dataPack)
+                packList.append(feature)
+                serialized = feature.serialize()
+                print "Inserting feature for pack " + str(pack_index)
+                self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)", (song_id, pack_index,feature_name, pack_size, serialized))
+                pack_index += pack_size
+        
+        return packList      
+        
 
-    def __addFeatureForSong(self, song_id, feature_name):
 
-        self.cur.execute("SELECT sample_index, data from Data_Raw WHERE song_id=%s", (song_id,))
+    def fetchSongData(self, song_id):
+        self.cur.execute("SELECT relative_path FROM Songs WHERE song_id=%s", (song_id,))
+        relative_path = self.cur.fetchone()[0]
 
-        songData = self.cur.fetchall()
+        path = self.workingPath + relative_path
 
-        count = 0;
-        for (sample_index, data) in songData:
-            # print str(song_id) + ": sample_index " + str(sample_index)
-            # Gets the feature class for instanciation.
-            class_ = getattr(features, feature_name)
-            feature = class_(data)
+        ampData, fs, enc = wavread(path)
+        return ampData
 
-            count += 1;
-            sys.stdout.write('\r')
-            sys.stdout.write("[%i" % (float(count) / float(len(songData)) * 100,) + "%]")
-            sys.stdout.flush()
 
-            # insert serialized data to Data_Features
-            self.cur.execute("INSERT INTO Data_Features (song_id, sample_index, feature_name, data) VALUES (%s, %s, %s, %s)", (song_id, sample_index, feature_name, data))  
-        print ""
+
 
 
 def method6():
@@ -204,18 +175,18 @@ import sys
 
 
 def main(argv):
-    dbControl = DataBaseController()
+    dbControl = DataBaseController("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/")
 
-    ampData, fs, enc = wavread("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/Rap/Eminem-Stan.wav")
+    # ampData, fs, enc = wavread("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/Rap/Eminem-Stan.wav")
 
-    # dbControl.addSong(ampData, {
-    #     "song_name": "Eminem",
-    #     "artist": "Stan",
-    #     "length": 0,
-    #     "genres": ["rap"]
-    # })
+    # dbControl.addSong("Rap/Eminem-Stan.wav", "Stan", "Eminem", "354", ["rap"])
+    # dbControl.commit()
 
-    dbControl.addNewFeature("Feature_FreqDom")
+
+    packList = dbControl.pullFeatureForSong("Feature_FreqDom", 1, 10000)
+
+    print len(packList[800].freqData)
+
     dbControl.commit()
 
 
