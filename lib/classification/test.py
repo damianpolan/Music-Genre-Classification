@@ -1,7 +1,9 @@
 
 
 import sys
-sys.path.insert(0, "/home/damian/Music-Genre-Classification/lib")
+import os
+  
+sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
 
 from algorithms import SupportVectorCLS 
 from fingerprints import DatabaseController
