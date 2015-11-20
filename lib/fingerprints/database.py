@@ -169,7 +169,31 @@ import sys
 
 
 def main(argv):
-    dbControl = Controller("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/")
+    """
+
+    Required actions:
+        clear database
+        change working song directory
+        add new song
+        add batch of songs from folder
+
+    argv:
+
+    param 0:
+        action name
+
+
+
+    """
+
+    action = argv[0];
+    param = argv[1];
+
+    #if(ac)
+
+
+    os.environ["MGC_DB_MUSIC_DIR"] = "/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/";
+    dbControl = Controller(os.environ["MGC_DB_MUSIC_DIR"])
 
     # ampData, fs, enc = wavread("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/Rap/Eminem-Stan.wav")
 
@@ -177,9 +201,9 @@ def main(argv):
     # dbControl.commit()    
 
 
-    packList = dbControl.pullFeatureForSong("Feature_FreqDom", 1, 10000)
+    # packList = dbControl.pullFeatureForSong("Feature_FreqDom", 1, 10000)
 
-    print len(packList[800].freqData)
+    # print len(packList[800].freqData)
 
     dbControl.commit()
 
