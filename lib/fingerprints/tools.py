@@ -1,6 +1,13 @@
 import struct
 import numpy as np
 
+
+#####################################################
+#
+#   SERIALIZATION FUNCTIONS
+#
+#####################################################
+
 def packSongArray(data):
     """
         packs a song array with struct.pack.
@@ -41,6 +48,13 @@ def unpackSongArray(packed):
 
 
 
+#####################################################
+#
+#   GENERAL HELPER FUNCTIONS
+#
+#####################################################
+
+
 def chunks(l, n):
     """Yield successive n-sized chunks from l.
     Splits an array into even size chunks.
@@ -52,6 +66,15 @@ def chunks(l, n):
     """
     for i in xrange(0, len(l), n):
         yield l[i:i+n]
+
+
+
+
+#####################################################
+#
+#   SAMPLE DATA FUNCTIONS
+#
+#####################################################
 
 
 def intoMono(data):
@@ -94,3 +117,17 @@ def frequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
     """
 
     return binIndex * (sampleRateHz / 2) / fftLength
+
+
+
+#####################################################
+#
+#   LOGGING FUNCTIONS
+#
+#####################################################
+
+import logging
+
+def defaultLog():
+    logging.basicConfig(format='%(asctime)s \t %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
+

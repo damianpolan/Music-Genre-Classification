@@ -6,7 +6,7 @@ import MySQLdb
 import features
 import tools
 from UserString import MutableString
-
+import logging
 
 class Controller:
 
@@ -26,10 +26,8 @@ class Controller:
 
         """ Connect to MySQL database """
 
-        print 'Connecting to SQL database: ' + host + " - " + database + ' ... '
+        logging.debug('Connecting to SQL database: ' + host + " - " + database + ' ... ')
         self.conn = mysql.connector.connect(host=host, database=database, user=user, password=password)
-        print 'Connected.'
-
         self.cur = self.conn.cursor()
 
         # DROPS ALL TABLES - for testing
@@ -95,13 +93,13 @@ class Controller:
         Adds a song to the database
         """
 
-        print "Adding song " + file_path
+        logging.debug("Adding song:\t" + os.path.basename(file_path)[:50])
         # # check if song already exists on bases of song_name and artist
         self.cur.execute("SELECT file_path FROM Songs WHERE file_path=%s", (file_path,))
 
         fetched = self.cur.fetchone()
         if fetched:
-            print "Song already exists. Not added to database."
+            logging.warning("Song already exists. Not added to database.")
             return
 
         # INSERT INTO Songs TABLE
@@ -115,7 +113,7 @@ class Controller:
 
         # we are not process features for the newly added song until they are requested by the learning algorithm.
 
-        print "Successfully added."
+        logging.debug("Successfully added.")
 
     # initialize required databases
     def pullFeatureForSong(self, feature_name, song_id, pack_size):
@@ -146,7 +144,7 @@ class Controller:
                 packList.append(feature)
                 row = self.cur.fetchone()
         else:  # NO ELEMENTS FOUND, COMPUTE
-            print "No match found. Creating ..."
+            logging.debug("No match found. Creating ...")
             rawData = self.fetchSongData(song_id)  # fetch raw data from file on disk
             rawChunks = tools.chunks(rawData, pack_size)  # Split the song into chunks of size pack_size. this will be processed by the feature
 
@@ -156,7 +154,7 @@ class Controller:
                 feature = class_(dataPack)
                 packList.append(feature)
                 serialized = feature.serialize()
-                print "Inserting feature for pack " + str(pack_index)
+                logging.debug("Inserting feature for pack " + str(pack_index))
                 self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)", (song_id, pack_index, feature_name, pack_size, serialized))
                 pack_index += pack_size
 
@@ -170,12 +168,57 @@ class Controller:
         return ampData
 
 
+    def getTrainingSet(self, genres, maxSetSize):
+        """
+            Gets a list of database song_id's which match at least one genre in genres.
+
+            genres: array of genre names.
+            maxSetSize: the maximum amount of training samples per genre. -1 for no limit.
+
+            returns:
+                dict object with format: 
+                {
+                    genre0: [ song_id list for genre0] 
+                    genre1: [ song_id list for genre1]
+                    ...
+                    genreN: [ song_id list for genreN]
+                }
+
+
+            Example:
+                database.getTrainingSet(['dubstep', 'house'], 100)
+                ^ will return a list containing 50 elements of each genre
+        """
+
+        if not isinstance(genres, list):
+            raise "Genres must be a list of strings."
+
+        songDict = {}
+
+        query = "SELECT song_id FROM Genres WHERE genre=%s"
+
+        for genre in genres:
+            if(maxSetSize >= 0):
+                self.cur.execute(query + " LIMIT %s", (genre, maxSetSize))
+            else:
+                self.cur.execute(query, (genre,))
+
+            songDict[genre] = []
+            results = self.cur.fetchall()
+            for result in results:
+                songDict[genre].append(result[0])
+
+        return songDict
+
+
+
+
 import sys
 import os
 
-
 def main(argv):
     """
+    Exectues an action on the database 
 
     Required actions:
         clear database
@@ -189,9 +232,20 @@ def main(argv):
     param 0:
         action name
 
+    # EXAMPLES: 
+    # python database.py clear
 
+    # python database.py add ~/Music/Dubstep/somesong.wav dubstep
+    # python database.py add ~/Music/Dubstep/ -1 dubstep
+    #
+    # Multi genre:
+    # python database.py add ~/Music/Dubstep/somesong.wav dubstep dnb progressive 
+    # 
 
     """
+    # logging.basicConfig(level=logging.DEBUG)
+    tools.defaultLog()
+
     print;
     if len(argv) < 1:
         print "Required paramater action"
@@ -220,6 +274,7 @@ def main(argv):
             else:
                 print extension + " is not a supported file type."
         elif os.path.isdir(absPath):
+
             if len(argv) < 4:
                 print "Required paramaters path maxcount genre0 genre1 ... genre n"
                 print
@@ -244,7 +299,7 @@ def main(argv):
                 count += 1
             dbControl.commit()
 
-            print "FINISHED adding songs for genrese(s) " + ', '.join(genres)
+            print "FINISHED adding " + str(count) + " songs for genre(s) " + ', '.join(genres)
 
         pass
     elif(action == "clear"):
