@@ -1,4 +1,5 @@
 import struct
+import numpy as np
 
 def packSongArray(data):
     """
@@ -53,8 +54,9 @@ def intoMono(data):
 
 def intoFrequencyDomain(data):
     #into frequency domain, takes the magnitutde of the complex
-    if data[0] is types.ListType:
-        return [ [abs(pair[0]), abs(pair[1]) ] for pair in np.fft.fft(data)]
-
+    if isinstance(data[0], list):
+        if(len(data[0]) != 2):
+            raise "Must be list of length 2"
+        return [ [abs(pair[0]), abs(pair[1])] for pair in np.fft.fft(data)]
     else:
-        return np.fft.fftshift([abs(element) for element in np.fft.fft(data)])
+        return [abs(element) for element in np.fft.fft(data)]
