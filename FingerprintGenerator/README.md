@@ -20,8 +20,9 @@ https://en.wikipedia.org/wiki/Feature_selection
 
 	To install audiolab:
 		sudo aptitude install libsndfile-dev
-		sudo easy_install scikits.audiolab
-
+        sudo aptitude install flac vorbis-tools
+        sudo easy_install scikits.audiolab
+        
 	To install matplotlib:
 		sudo apt-get install libfreetype6-dev libpng-dev
 		sudo pip install matplotlib

@@ -1,0 +1,25 @@
+https://virtualenv.pypa.io/en/latest/userguide.html
+
+
+CREATE NEW VIRTUAL ENV:
+virtualenv ENV
+
+
+ADD IT TO PATH
+source bin/activate
+    -> this also puts the shell into this environment mode
+    -> to deactivate use command:
+        deactivate
+
+
+Virtual ENV environment setup notes:
+
+    lapack & blas install (for scipy):
+    http://faculty.washington.edu/rjl/uwamath583s11/scikitphinx/notes/html/lapack_install.html
+
+
+    mysql-connector
+    pip install --allow-external mysql-connector-python mysql-connector-python
+
+    scikit audiolab:
+    pip install scikits.audiolab
