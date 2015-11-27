@@ -18,12 +18,11 @@ class Controller:
     Must call DataBaseController.commit() manually.
     """
 
-    def __init__(self, workingPath, user='user', password='', host='127.0.0.1', database='fingerprints'):
+    def __init__(self, user='user', password='', host='127.0.0.1', database='fingerprints'):
         self.user = user
         self.password = password
         self.host = host
         self.database = database
-        self.workingPath = workingPath
 
         """ Connect to MySQL database """
 
@@ -39,14 +38,21 @@ class Controller:
         # self.cur.execute("DROP TABLE IF EXISTS FeatureData")
         # self.cur.execute("DROP TABLE IF EXISTS Songs")
 
-        print "Creating all tables..."
+        # sample index is the start index of the data in the original sample data list.
+        self.createTables()
+        # self.cur.execute("CREATE TABLE IF NOT EXISTS SupportedFeatures(\
+        #                 feature_name varchar(32),\
+        #                 primary key (feature_name)\
+        #                 )")
+
+    def createTables(self):
         # ADD ALL REQUIRED TABLES
         self.cur.execute("CREATE TABLE IF NOT EXISTS Songs(\
                         song_id int AUTO_INCREMENT,\
                         song_name varchar(64),\
                         artist varchar(64),\
                         seconds int,\
-                        relative_path varchar(255),\
+                        file_path varchar(255),\
                         PRIMARY KEY (song_id)\
                         )")
 
@@ -66,35 +72,40 @@ class Controller:
                         primary key (song_id, pack_index, feature_name, pack_size),\
                         FOREIGN KEY (song_id) REFERENCES Songs(song_id)\
                         )")
-        # sample index is the start index of the data in the original sample data list.
-
-        # self.cur.execute("CREATE TABLE IF NOT EXISTS SupportedFeatures(\
-        #                 feature_name varchar(32),\
-        #                 primary key (feature_name)\
-        #                 )")
-
-        print "Commiting..."
         self.conn.commit()
-        print "Done"
+
+    def deleteAllEntries(self):
+        print "Deleting Tables"
+        # self.cur.execute("DROP TABLE IF EXISTS Genres")
+        # self.cur.execute("DROP TABLE IF EXISTS FeatureData")
+        # self.cur.execute("DROP TABLE IF EXISTS Songs")
+        self.cur.execute("SET FOREIGN_KEY_CHECKS = 0")
+        self.cur.execute("truncate table Genres")
+        self.cur.execute("truncate table FeatureData")
+        self.cur.execute("truncate table Songs")
+        self.cur.execute("SET FOREIGN_KEY_CHECKS = 1")
+        self.createTables()
+        self.conn.commit()
 
     def commit(self):
         self.conn.commit()
 
-    def addSong(self, relative_path, song_name, artist, seconds, genres):
+    def addSong(self, file_path, song_name, artist, seconds, genres):
         """
         Adds a song to the database
         """
 
-        print "Adding song " + song_name + " - " + artist + " ..."
-        # check if song already exists on bases of song_name and artist
-        self.cur.execute("SELECT song_name, artist FROM Songs WHERE song_name=%s AND artist=%s", (song_name, artist))
+        print "Adding song " + file_path
+        # # check if song already exists on bases of song_name and artist
+        self.cur.execute("SELECT file_path FROM Songs WHERE file_path=%s", (file_path,))
 
-        if self.cur.fetchone():
-            print "Song " + song_name + " - " + artist + " already exists. Not added to database."
+        fetched = self.cur.fetchone()
+        if fetched:
+            print "Song already exists. Not added to database."
             return
 
         # INSERT INTO Songs TABLE
-        self.cur.execute("INSERT INTO Songs (song_name, artist, seconds, relative_path) VALUES (%s, %s, %s, %s)", (song_name, artist, seconds, relative_path))
+        self.cur.execute("INSERT INTO Songs (song_name, artist, seconds, file_path) VALUES (%s, %s, %s, %s)", (song_name, artist, seconds, file_path))
 
         # INSERT GENRES FOR THE SONG
         # get the newly made song_id
@@ -109,7 +120,7 @@ class Controller:
     # initialize required databases
     def pullFeatureForSong(self, feature_name, song_id, pack_size):
         """
-            Returns an array with elements of type <feature_name>. 
+            Returns an array with elements of type <feature_name>.
 
             The song is split into n number of sample packs. Each sample pack is of size pack_size.
             The feature is evaluated on each sample pack and filled into the returned array (in same order).
@@ -124,48 +135,43 @@ class Controller:
         # PULL IF FEATURE THAT ALREADY EXISTS
         self.cur.execute("SELECT data FROM FeatureData WHERE song_id=%s AND feature_name=%s AND pack_size=%s", (song_id, feature_name, pack_size))
 
-   
-        class_ = getattr(features, feature_name) #prepare the class for instanciation
+        class_ = getattr(features, feature_name)  # prepare the class for instanciation
         packList = []
 
         row = self.cur.fetchone()
 
-        if(row): #RETURN THE LIST OF FEATURES
+        if(row):  # RETURN THE LIST OF FEATURES
             while (row):
                 feature = class_.unserialize(row[0])
                 packList.append(feature)
                 row = self.cur.fetchone()
-        else: # NO ELEMENTS FOUND, COMPUTE
+        else:  # NO ELEMENTS FOUND, COMPUTE
             print "No match found. Creating ..."
-            rawData = self.fetchSongData(song_id) # fetch raw data from file on disk
-            rawChunks = tools.chunks(rawData, pack_size) # Split the song into chunks of size pack_size. this will be processed by the feature
+            rawData = self.fetchSongData(song_id)  # fetch raw data from file on disk
+            rawChunks = tools.chunks(rawData, pack_size)  # Split the song into chunks of size pack_size. this will be processed by the feature
 
-            #iterate and create a feature for each one to save to the DB
-            pack_index = 0            
+            # iterate and create a feature for each one to save to the DB
+            pack_index = 0
             for dataPack in rawChunks:
                 feature = class_(dataPack)
                 packList.append(feature)
                 serialized = feature.serialize()
                 print "Inserting feature for pack " + str(pack_index)
-                self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)", (song_id, pack_index,feature_name, pack_size, serialized))
+                self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)", (song_id, pack_index, feature_name, pack_size, serialized))
                 pack_index += pack_size
-        
-        return packList      
-        
 
+        return packList
 
     def fetchSongData(self, song_id):
-        self.cur.execute("SELECT relative_path FROM Songs WHERE song_id=%s", (song_id,))
-        relative_path = self.cur.fetchone()[0]
+        self.cur.execute("SELECT file_path FROM Songs WHERE song_id=%s", (song_id,))
+        file_path = self.cur.fetchone()[0]
 
-        path = self.workingPath + relative_path
-
-        ampData, fs, enc = wavread(path)
+        ampData, fs, enc = wavread(file_path)
         return ampData
-        
 
 
 import sys
+import os
 
 
 def main(argv):
@@ -173,9 +179,10 @@ def main(argv):
 
     Required actions:
         clear database
-        change working song directory
-        add new song
-        add batch of songs from folder
+
+        add
+            add new song
+            add batch of songs from folder
 
     argv:
 
@@ -185,15 +192,72 @@ def main(argv):
 
 
     """
+    print;
+    if len(argv) < 1:
+        print "Required paramater action"
+        print
+        return;
 
+    supportedExt = [".wav"]
     action = argv[0];
-    param = argv[1];
 
-    #if(ac)
+    if(action == "add"):
+        absPath = os.path.abspath(argv[1])
+        if os.path.isfile(absPath):
+            if len(argv) < 3:
+                print "Required paramaters path genre0 genre1 ... genre n"
+                print
 
+            filename, extension = os.path.splitext(absPath)
+            if(extension in supportedExt):
+                # file is valid and we can add it to the database
+                genres = argv[2:]
+                dbControl = Controller()
+                dbControl.addSong(absPath, "", "", "", genres)
+                dbControl.commit()
+                # print "Song added for genres " + ', '.join(genres) + " at:"
+                print absPath
+            else:
+                print extension + " is not a supported file type."
+        elif os.path.isdir(absPath):
+            if len(argv) < 4:
+                print "Required paramaters path maxcount genre0 genre1 ... genre n"
+                print
 
-    os.environ["MGC_DB_MUSIC_DIR"] = "/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/";
-    dbControl = Controller(os.environ["MGC_DB_MUSIC_DIR"])
+            allFiles = os.listdir(absPath)
+            maxCount = int(argv[2])
+            genres = argv[3:]
+
+            allWavs = []
+            for file in allFiles:
+                filename, extension = os.path.splitext(file)
+                if(extension in supportedExt):
+                    allWavs.append(file)
+
+            count = 0
+            dbControl = Controller()
+
+            for wav in allWavs:
+                if (maxCount < 0 or count < maxCount): # -1 means add all files
+                    abswav = absPath + wav
+                    dbControl.addSong(abswav, "", "", "", genres)
+                count += 1
+            dbControl.commit()
+
+            print "FINISHED adding songs for genrese(s) " + ', '.join(genres)
+
+        pass
+    elif(action == "clear"):
+        dbControl = Controller()
+        dbControl.deleteAllEntries()
+        dbControl.commit()
+        pass
+        
+    print
+    return
+    # os.environ["MGC_DB_MUSIC_DIR"] = "/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/";
+    # dbControl = Controller(os.environ["MGC_DB_MUSIC_DIR"])
+
 
     # ampData, fs, enc = wavread("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/Rap/Eminem-Stan.wav")
 
@@ -205,7 +269,8 @@ def main(argv):
 
     # print len(packList[800].freqData)
 
-    dbControl.commit()
+    # dbControl.commit()
+    print
 
 
 if __name__ == "__main__":
