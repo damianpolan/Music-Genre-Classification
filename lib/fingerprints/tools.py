@@ -43,6 +43,11 @@ def unpackSongArray(packed):
 
 def chunks(l, n):
     """Yield successive n-sized chunks from l.
+    Splits an array into even size chunks.
+
+    l is the array.
+    n is the number of chunks
+
     From: http://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks-in-python
     """
     for i in xrange(0, len(l), n):
@@ -50,13 +55,42 @@ def chunks(l, n):
 
 
 def intoMono(data):
-    return [pair[0]+pair[1] for pair in data]
+    """
+    data = time domain data in list format. Each element in the list should be an array of length two with each subelement being the left/right (stereo) sample.
+
+    output:
+        list of sample data in mono format. Each element is the sum of the left/right sample
+    """
+    return [pair[0] + pair[1] for pair in data]
 
 def intoFrequencyDomain(data):
     #into frequency domain, takes the magnitutde of the complex
-    if isinstance(data[0], list):
+    if isinstance(data[0], list): 
+        # in stereo format
         if(len(data[0]) != 2):
             raise "Must be list of length 2"
-        return [ [abs(pair[0]), abs(pair[1])] for pair in np.fft.fft(data)]
+
+        fft = np.fft.fft(data)
+        fft = fft[0:len(fft) / 2]
+        return [ [abs(pair[0]), abs(pair[1])] for pair in fft]
     else:
-        return [abs(element) for element in np.fft.fft(data)]
+        #in mono format
+
+        fft = np.fft.fft(data)
+        fft = fft[0:len(fft) / 2] # we remove the last half of the data (the -ve frequencies).
+        return [abs(element) for element in fft]
+
+def frequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
+    """
+    Calculates the frequency of the given bin in a FFT result (frequency domain).
+
+    binIndex        The index of the bin to get the frequency for.
+    fftLength       The length of the frequency domain list data.
+    sampleRateHz:   The sample rate of the audio.
+
+    returns:
+        The frequency of the bin. = (binIndex * (sampleRateHz / 2) / fftLength)
+
+    """
+
+    return binIndex * (sampleRateHz / 2) / fftLength

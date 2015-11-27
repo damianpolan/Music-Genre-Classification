@@ -8,8 +8,8 @@ class Feature(object):
     """
 
     # CONSTRUCTOR
-    def __init__(self, data, useInitialize=True):
-        if(useInitialize):
+    def __init__(self, data):
+        if data != None:
             self.initialize(data)
 
     def initialize(self, data):
