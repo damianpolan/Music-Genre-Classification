@@ -16,9 +16,8 @@ class Feature_FreqDom(Feature.Feature):
         Feature.Feature.__init__(self, data, useInitialize)
 
     def initialize(self, data):
-        #into frequency domain, only takes the real parts of the complex number returned by numpy fft.
-        self.freqData = [ [pair[0].real, pair[1].real ] for pair in np.fft.fft(data)] 
-
+        self.freqData = tools.intoFrequencyDomain(tools.intoMono(data))
+         
     def serialize(self):
         """
         Format:

@@ -46,3 +46,15 @@ def chunks(l, n):
     """
     for i in xrange(0, len(l), n):
         yield l[i:i+n]
+
+
+def intoMono(data):
+    return [pair[0]+pair[1] for pair in data]
+
+def intoFrequencyDomain(data):
+    #into frequency domain, takes the magnitutde of the complex
+    if data[0] is types.ListType:
+        return [ [abs(pair[0]), abs(pair[1]) ] for pair in np.fft.fft(data)]
+
+    else:
+        return np.fft.fftshift([abs(element) for element in np.fft.fft(data)])
