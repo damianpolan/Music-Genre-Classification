@@ -129,5 +129,5 @@ def frequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
 import logging
 
 def defaultLog():
-    logging.basicConfig(format='%(asctime)s \t %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s -   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 
