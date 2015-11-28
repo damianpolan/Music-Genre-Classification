@@ -29,7 +29,7 @@ class Feature_FreqDom(Feature.Feature):
 
     @staticmethod
     def unserialize(serialized):
-        newFeature = Feature_FreqDom(None, False)
+        newFeature = Feature_FreqDom(None)
         newFeature.freqData = tools.unpackSongArray(serialized)
         return newFeature
 
@@ -53,7 +53,7 @@ class Feature_Centroid(Feature.Feature):
         sum_fm = 0
         sum_m = 0
         for cbin in range(0, len(freqData)):
-            f = frequencyAtFFTIndex(cbin, len(freqData))
+            f = tools.frequencyAtFFTIndex(cbin, len(freqData))
             sum_fm += f * freqData[cbin]  # f * M(f)
             sum_m += freqData[cbin]  # M(f)
 
@@ -67,11 +67,11 @@ class Feature_Centroid(Feature.Feature):
         <length>:::<packed data>
         """
 
-        return self.value
+        return float(self.value)
 
     @staticmethod
     def unserialize(serialized):
-        newFeature = Feature_Centroid(None, False)
+        newFeature = Feature_Centroid(None)
         newFeature.value = serialized
         return newFeature
 

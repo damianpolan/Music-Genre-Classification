@@ -9,7 +9,7 @@ class Feature(object):
 
     # CONSTRUCTOR
     def __init__(self, data):
-        if data != None:
+        if not isinstance(data, type(None)):
             self.initialize(data)
 
     def initialize(self, data):

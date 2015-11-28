@@ -26,7 +26,7 @@ class Controller:
 
         """ Connect to MySQL database """
 
-        logging.debug('Connecting to SQL database: ' + host + " - " + database + ' ... ')
+        logging.debug('Connecting to SQL database: ' + host + ":" + database + '.')
         self.conn = mysql.connector.connect(host=host, database=database, user=user, password=password)
         self.cur = self.conn.cursor()
 
@@ -73,7 +73,7 @@ class Controller:
         self.conn.commit()
 
     def deleteAllEntries(self):
-        print "Deleting Tables"
+        logging.debug("Clearing Tables")
         # self.cur.execute("DROP TABLE IF EXISTS Genres")
         # self.cur.execute("DROP TABLE IF EXISTS FeatureData")
         # self.cur.execute("DROP TABLE IF EXISTS Songs")
@@ -82,7 +82,14 @@ class Controller:
         self.cur.execute("truncate table FeatureData")
         self.cur.execute("truncate table Songs")
         self.cur.execute("SET FOREIGN_KEY_CHECKS = 1")
-        self.createTables()
+        # self.createTables()
+        self.conn.commit()
+
+    def deleteAllFeatureData(self):
+        logging.debug("Clearing table FeatureData")
+        self.cur.execute("SET FOREIGN_KEY_CHECKS = 0")
+        self.cur.execute("truncate table FeatureData")
+        self.cur.execute("SET FOREIGN_KEY_CHECKS = 1")
         self.conn.commit()
 
     def commit(self):
@@ -130,6 +137,7 @@ class Controller:
             @param pack_size: the size of the packets to split the song into. (-1 to apply the feature to the whole song)dw
         """
 
+        logging.debug("song_id " + str(song_id) + ":  " + feature_name + " with pack size " + str(pack_size) + " searching...")
         # PULL IF FEATURE THAT ALREADY EXISTS
         self.cur.execute("SELECT data FROM FeatureData WHERE song_id=%s AND feature_name=%s AND pack_size=%s", (song_id, feature_name, pack_size))
 
@@ -139,25 +147,28 @@ class Controller:
         row = self.cur.fetchone()
 
         if(row):  # RETURN THE LIST OF FEATURES
+            logging.debug("Feature Data found.")
             while (row):
                 feature = class_.unserialize(row[0])
                 packList.append(feature)
                 row = self.cur.fetchone()
         else:  # NO ELEMENTS FOUND, COMPUTE
-            logging.debug("No match found. Creating ...")
+            logging.debug("Feature Data not found.")
             rawData = self.fetchSongData(song_id)  # fetch raw data from file on disk
             rawChunks = tools.chunks(rawData, pack_size)  # Split the song into chunks of size pack_size. this will be processed by the feature
 
             # iterate and create a feature for each one to save to the DB
             pack_index = 0
+            logging.debug("Inserting feature for all packs ...")
             for dataPack in rawChunks:
                 feature = class_(dataPack)
                 packList.append(feature)
                 serialized = feature.serialize()
-                logging.debug("Inserting feature for pack " + str(pack_index))
+                # logging.debug("Inserting feature for pack " + str(pack_index))
                 self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)", (song_id, pack_index, feature_name, pack_size, serialized))
                 pack_index += pack_size
 
+        self.commit()
         return packList
 
     def fetchSongData(self, song_id):
@@ -294,7 +305,7 @@ def main(argv):
 
             for wav in allWavs:
                 if (maxCount < 0 or count < maxCount): # -1 means add all files
-                    abswav = absPath + wav
+                    abswav = os.path.join(absPath, wav)
                     dbControl.addSong(abswav, "", "", "", genres)
                 count += 1
             dbControl.commit()
@@ -303,30 +314,38 @@ def main(argv):
 
         pass
     elif(action == "clear"):
-        dbControl = Controller()
-        dbControl.deleteAllEntries()
-        dbControl.commit()
+        if(len(argv) < 2):
+            print "required param type for clear. Types: 'all', 'features'"
+            return
+
+        ctype = argv[1]
+        if(ctype == "all"):
+            dbControl = Controller()
+            dbControl.deleteAllEntries()
+        elif(ctype == "features"):
+            dbControl = Controller()
+            dbControl.deleteAllFeatureData()
+        else:
+            print "unkown clear param " + ctype
         pass
+
         
     print
     return
-    # os.environ["MGC_DB_MUSIC_DIR"] = "/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/";
-    # dbControl = Controller(os.environ["MGC_DB_MUSIC_DIR"])
 
 
-    # ampData, fs, enc = wavread("/home/damian/Music-Genre-Classification/FingerprintGenerator/TestSongs/Rap/Eminem-Stan.wav")
 
-    # dbControl.addSong("Rap/Eminem-Stan.wav", "Stan", "Eminem", "354", ["rap"])
-    # dbControl.commit()    
-
-
-    # packList = dbControl.pullFeatureForSong("Feature_FreqDom", 1, 10000)
-
-    # print len(packList[800].freqData)
-
-    # dbControl.commit()
     print
 
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
+
+"""
+
+python database.py add ~/Music/House -1 house
+python database.py add ~/Music/Dubstep -1 dubstep
+python database.py add ~/Music/Trance -1 trance
+
+"""
