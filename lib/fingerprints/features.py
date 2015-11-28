@@ -57,7 +57,11 @@ class Feature_Centroid(Feature.Feature):
             sum_fm += f * freqData[cbin]  # f * M(f)
             sum_m += freqData[cbin]  # M(f)
 
-        centroid = sum_fm / sum_m
+        #handle the divide by zero case!
+        if(sum_m != 0):
+            centroid = sum_fm / sum_m
+        else:
+            centroid = 0
 
         self.value = centroid
 

@@ -26,31 +26,34 @@ def main(argv):
     dbControl = database.Controller()
 
     genres = ['house', 'dubstep']
-    trainingData = dbControl.getTrainingSet(genres, 4)
+    trainingData = dbControl.getTrainingSet(genres, 10)
 
     ids_and_genres = []
+    print trainingData
     for genre in genres:
         for song_id in trainingData[genre]:
             ids_and_genres.append((song_id, genre))
 
+
     #iterating over all pulled songs
     for id_and_genre in ids_and_genres:
+        log.debug("Fetching " + str(id_and_genre))
         featureDatas = dbControl.pullFeatureForSong("Feature_Centroid", id_and_genre[0],packsize)
 
 
-    def onTrain(index):
-        log.debug("onTrain: " + str(dataset[index]))
+    # def onTrain(index):
+    #     log.debug("onTrain: " + str(dataset[index]))
 
-    def onValidate(index):
-        log.debug("onValidate: " + str(dataset[index]))
-        return True
+    # def onValidate(index):
+    #     log.debug("onValidate: " + str(dataset[index]))
+    #     return True
 
-    def onDoneTraining():
-        log.debug("DONE TRAINING")
+    # def onDoneTraining():
+    #     log.debug("DONE TRAINING")
 
-    eightFold = validation.CrossValidation(len(dataset), onTrain, onValidate, onDoneTraining, folds=8)
-    hitRate = eightFold.performValidation(shuffle=True)
-    log.debug("hitRate = " + str(hitRate))
+    # eightFold = validation.CrossValidation(len(dataset), onTrain, onValidate, onDoneTraining, folds=8)
+    # hitRate = eightFold.performValidation(shuffle=True)
+    # log.debug("hitRate = " + str(hitRate))
 
     # machine = svm.SVC()
     # machine.fit(desc, classes)

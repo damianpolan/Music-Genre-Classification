@@ -153,13 +153,12 @@ class Controller:
                 packList.append(feature)
                 row = self.cur.fetchone()
         else:  # NO ELEMENTS FOUND, COMPUTE
-            logging.debug("Feature Data not found.")
+            logging.debug("Feature Data not found. Generating feature data for all packs...")
             rawData = self.fetchSongData(song_id)  # fetch raw data from file on disk
             rawChunks = tools.chunks(rawData, pack_size)  # Split the song into chunks of size pack_size. this will be processed by the feature
 
             # iterate and create a feature for each one to save to the DB
             pack_index = 0
-            logging.debug("Inserting feature for all packs ...")
             for dataPack in rawChunks:
                 feature = class_(dataPack)
                 packList.append(feature)
