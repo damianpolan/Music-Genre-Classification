@@ -39,7 +39,7 @@ def main(argv):
     for id_and_genre in ids_and_genres:
         log.debug("Fetching " + str(id_and_genre))
         featureDatas = dbControl.pullFeatureForSong("Feature_Centroid", id_and_genre[0],packsize)
-
+        
 
     # def onTrain(index):
     #     log.debug("onTrain: " + str(dataset[index]))

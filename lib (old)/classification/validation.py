@@ -7,6 +7,9 @@ class CrossValidation():
     """
     Permorms an n fold validation technique.
 
+    Notes:
+    - the percent hit rate calculation is limiting here as their is no ability to calculate false positive and true negatives rates.
+
     Reference:
         https://en.wikipedia.org/wiki/Cross-validation_(statistics)
 
@@ -62,7 +65,7 @@ class CrossValidation():
             success = self.onValidate(i)
 
             if not isinstance(success, bool):
-                raise "onValidate() must return a boolean."
+                raise "onValidate() must return a boolean value."
 
             if success:
                 successCount += 1

@@ -24,3 +24,6 @@ fully supervised,
 single-label classification,
 
 
+
+Scaling Strategies:
+    http://scikit-learn.org/stable/modules/scaling_strategies.html
