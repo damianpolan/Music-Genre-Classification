@@ -1,0 +1,36 @@
+
+Support Vector Classification used.
+
+Simple 8 fold validation is done in this case. With the validation phase only checking hit rate.
+
+
+Training Set:
+
+30 songs total.
+10 from each genre: House, Dubstep, Trance
+200 sample pack from each song: 2000:2200. 
+	sample pack size: 512
+
+
+We are only training on each sample pack. I.e each sample pack is classified to a genre.
+
+Features used:
+Centroid - al
+Rolloff
+
+
+Notes:
+With three possible genres, if a class was randomly chosen, we would expect a hit rate of 30%.
+
+Results:
+
+remember these are hit rates for each sample pack classification.
+Centroid only: 
+	hitrate: 34% - 36% 
+Centroid and Rolloff:
+	hitrate: 35% - 41%
+
+
+Thoughts and plans:
+
+Because we are only classifying each sample pack individually, we are losing some important temporal information. Also, no averages are taken.

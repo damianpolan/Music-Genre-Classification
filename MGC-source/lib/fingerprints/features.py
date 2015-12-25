@@ -1,9 +1,7 @@
 import Feature
 import numpy as np
-#from scikits.audiolab import wavread
-import struct
 import tools
-
+import logging as log
 
 class Feature_FreqDom(Feature.Feature):
 
@@ -73,6 +71,49 @@ class Feature_Centroid(Feature.Feature):
         """
 
         return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = serialized
+        return newFeature
+
+
+class Feature_Rolloff(Feature.Feature):
+
+    """
+    Implementation of Feature flux function.
+
+    USES: amplitude vs time data.
+    """
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+        freq_data = tools.intoFrequencyDomain(tools.intoMono(data))
+
+        sum_m_total = 0
+        for cbin in range(0, len(freq_data)):
+            sum_m_total += freq_data[cbin]  # M(f)
+
+        sum_m_target = 0.85 * sum_m_total
+        sum_m_new = 0
+        r = 0
+        for cbin in range(0, len(freq_data)):
+            sum_m_new += freq_data[cbin]  # M(f)
+            r += 1
+            if sum_m_new > sum_m_target:
+                break
+
+        self.value = r
+
+    def serialize(self):
+        """
+        Format:
+        value
+        """
+        return int(self.value)
 
     @staticmethod
     def unserialize(serialized):
