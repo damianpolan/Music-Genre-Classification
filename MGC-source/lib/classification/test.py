@@ -19,13 +19,17 @@ from sklearn import svm
 def main(argv):
     tools.defaultLog()
 
-    packsize = 512
+    """
+        packsize = 1024 --> about 42 sample packs per second
+    """
+
+    packsize = 1024
     dataset = []
 
     dbControl = database.Controller()
 
-    genres = [ 'house', 'dubstep', 'trance' ]
-    training_data = dbControl.getTrainingSet(genres, 10)
+    genres = ['dubstep', 'trance', 'house']
+    training_data = dbControl.getTrainingSet(genres, 40)
 
     ids_and_genres = []
     print training_data
@@ -40,16 +44,17 @@ def main(argv):
         log.debug("Fetching " + str(id_and_genre))
 
         # featureDatas will contain an array of feature objects
-        feature_data_centroid = dbControl.pullFeatureForSong("Feature_Centroid", id_and_genre[0],packsize)
-        feature_data_rolloff = dbControl.pullFeatureForSong("Feature_Rolloff", id_and_genre[0],packsize)
+        feature_data_centroid = dbControl.pullFeatureForSong("Feature_Centroid_Avg", id_and_genre[0],packsize)
+        feature_data_rolloff = dbControl.pullFeatureForSong("Feature_Rolloff_Avg", id_and_genre[0],packsize)
 
         # log.debug("feature_datas.length = " + str(len(feature_datas)))
         # take 200 samples from the middle-ish
-        for i in range(2000, 2200):
-            centroid = float(feature_data_centroid[i].value)
-            rolloff = int(feature_data_rolloff[i].value)
-            samples.append((centroid, rolloff))
-            classes.append(id_and_genre[1])
+        #for i in range(2000, 2200):
+        centroid = float(feature_data_centroid[0].value)
+        rolloff = float(feature_data_rolloff[0].value)
+        samples.append((centroid, rolloff))
+        classes.append(id_and_genre[1])
+        log.debug("@@@@" + id_and_genre[1] + "  centroid=" + str(centroid) + " rolloff=" + str(rolloff))
 
     machine = svm.SVC(C=1.0)
 
@@ -75,8 +80,8 @@ def main(argv):
         machine.fit(chosen_samples, chosen_classes)
         log.debug("Fitting.")
 
-    eightFold = validation.CrossValidation(len(samples), onTrain, onValidate, onDoneTraining, folds=8)
-    hitRate = eightFold.performValidation(shuffle=True)
+    holdOut = validation.HoldOutValidation(len(samples), onTrain, onValidate, onDoneTraining, validationPercent=0.2)
+    hitRate = holdOut.performValidation(shuffle=True)
     log.debug("hitRate = " + str(hitRate))
 
     # machine = svm.SVC()

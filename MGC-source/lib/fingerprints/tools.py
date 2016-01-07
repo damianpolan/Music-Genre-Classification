@@ -56,7 +56,8 @@ def unpackSongArray(packed):
 
 
 def chunks(l, n):
-    """Yield successive n-sized chunks from l.
+    """
+    Yield successive n-sized chunks from l.
     Splits an array into even size chunks.
 
     l is the array.
@@ -76,15 +77,14 @@ def chunks(l, n):
 #
 #####################################################
 
-
-def intoMono(data):
+def intoMono(samplePack):
     """
     data = time domain data in list format. Each element in the list should be an array of length two with each subelement being the left/right (stereo) sample.
 
     output:
         list of sample data in mono format. Each element is the sum of the left/right sample
     """
-    return [pair[0] + pair[1] for pair in data]
+    return [pair[0] + pair[1] for pair in samplePack]
 
 def intoFrequencyDomain(data):
     #into frequency domain, takes the magnitutde of the complex
@@ -103,7 +103,7 @@ def intoFrequencyDomain(data):
         fft = fft[0:len(fft) / 2] # we remove the last half of the data (the -ve frequencies).
         return [abs(element) for element in fft]
 
-def frequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
+def FrequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
     """
     Calculates the frequency of the given bin in a FFT result (frequency domain).
 
@@ -118,6 +118,49 @@ def frequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
 
     return binIndex * (sampleRateHz / 2) / fftLength
 
+
+def Centroid(samplePack):
+    """
+    Calculates the centroid of a given sample pack.
+    centroid = sum(f * M(f)) / sum (M(f))
+    :param data: time domain data
+    :return: centroid value as float
+    """
+    freq_data = intoFrequencyDomain(intoMono(samplePack))
+
+    sum_fm = 0
+    sum_m = 0
+    for cbin in range(0, len(freq_data)):
+        f = FrequencyAtFFTIndex(cbin, len(freq_data))
+        sum_fm += f * freq_data[cbin]  # f * M(f)
+        sum_m += freq_data[cbin]  # M(f)
+
+    # handle the divide by zero case!
+    if sum_m != 0:
+        centroid = sum_fm / sum_m
+    else:
+        centroid = 0
+
+    return centroid
+
+
+def RollOff(samplePack):
+    freq_data = intoFrequencyDomain(intoMono(samplePack))
+
+    sum_m_total = 0
+    for cbin in range(0, len(freq_data)):
+        sum_m_total += freq_data[cbin]  # M(f)
+
+    sum_m_target = 0.85 * sum_m_total
+    sum_m_new = 0
+    r = 0
+    for cbin in range(0, len(freq_data)):
+        sum_m_new += freq_data[cbin]  # M(f)
+        r += 1
+        if sum_m_new > sum_m_target:
+            break
+
+    return r
 
 
 #####################################################

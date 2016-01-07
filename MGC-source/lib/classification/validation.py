@@ -2,20 +2,17 @@
 import logging
 import random
 
-class CrossValidation():
+class HoldOutValidation():
 
     """
-    Permorms an n fold validation technique.
+    Performs a Hold out validation technique.
 
     Notes:
     - the percent hit rate calculation is limiting here as their is no ability to calculate false positive and true negatives rates.
 
-    Reference:
-        https://en.wikipedia.org/wiki/Cross-validation_(statistics)
-
     """
 
-    def __init__(self, dataSetSize, onTrain, onValidate, onDoneTraining, folds=8):
+    def __init__(self, dataSetSize, onTrain, onValidate, onDoneTraining, validationPercent=0.15):
         """
         trainingSetSize:    the length of the data. (i.e nubmer of sample packs analysed)
         onTrain(index):     function called when a training call is made. 
@@ -32,6 +29,81 @@ class CrossValidation():
 
         folds:  The nubmer of folds to make. i.e: 8 folds -> 7 folds for training, 1 for validation
         """
+
+        if dataSetSize <= 0:
+            raise "Invalid dataSetSize. Must be greater than zero."
+
+        self.dataSetSize = dataSetSize
+        self.onTrain = onTrain
+        self.onValidate = onValidate
+        self.onDoneTraining = onDoneTraining
+        self.validationPercent = validationPercent
+
+    def performValidation(self, shuffle=True):
+        """
+        Runs the cross validation
+        returns the hit rate.
+        """
+        crossover = int(self.dataSetSize * (1 - self.validationPercent))
+
+        indexes = range(0, self.dataSetSize)
+        if shuffle:
+            random.shuffle(indexes)
+
+        # train
+        for i in indexes[:crossover]:
+            self.onTrain(i)
+
+        self.onDoneTraining()
+
+        # validate
+        successCount = 0
+        for i in indexes[crossover:]:
+            success = self.onValidate(i)
+
+            if not isinstance(success, bool):
+                raise "onValidate() must return a boolean value."
+
+            if success:
+                successCount += 1
+
+        # calculate hit rate
+        hitRate = float(successCount / float(self.dataSetSize * self.validationPercent))
+        return hitRate
+
+
+
+class CrossValidation():
+
+    """
+    Performs an n fold validation technique.
+
+    Notes:
+    - the percent hit rate calculation is limiting here as their is no ability to calculate false positive and true negatives rates.
+
+    Reference:
+        https://en.wikipedia.org/wiki/Cross-validation_(statistics)
+
+    """
+
+    def __init__(self, dataSetSize, onTrain, onValidate, onDoneTraining, folds=8):
+        """
+        trainingSetSize:    the length of the data. (i.e nubmer of sample packs analysed)
+        onTrain(index):     function called when a training call is made.
+            - input: the data set index to train
+            - No return value needed.
+
+        onValidate(index):  function called when a validate call is made.
+            - input: the data set index to validate
+            - Must return a boolean indicating if the classification was correct.
+
+        onDoneTraining():  function called when the training phase is complete. Always happens before the first onValidate() call.
+            - input: none
+            - no return value
+
+        folds:  The nubmer of folds to make. i.e: 8 folds -> 7 folds for training, 1 for validation
+        """
+        raise "Not implemented. (currently implemented as hold out validation)"
 
         if dataSetSize <= 0:
             raise "Invalid dataSetSize. Must be greater than zero."

@@ -3,6 +3,12 @@ import numpy as np
 import tools
 import logging as log
 
+
+
+
+"""
+ SAMPLE PACK FEATURES:
+"""
 class Feature_FreqDom(Feature.Feature):
 
     """
@@ -10,9 +16,9 @@ class Feature_FreqDom(Feature.Feature):
 
     USES: amplitude vs time data.
     """
+    requireFullSong = False
 
     def __init__(self, data):
-        Feature.Feature.__init__(self, data)
         self.value = None
 
     def initialize(self, data):
@@ -42,27 +48,13 @@ class Feature_Centroid(Feature.Feature):
 
     USES: amplitude vs time data.
     """
+    requireFullSong = False
 
     def __init__(self, data):
         Feature.Feature.__init__(self, data)
 
     def initialize(self, data):
-        freq_data = tools.intoFrequencyDomain(tools.intoMono(data))
-
-        sum_fm = 0
-        sum_m = 0
-        for cbin in range(0, len(freq_data)):
-            f = tools.frequencyAtFFTIndex(cbin, len(freq_data))
-            sum_fm += f * freq_data[cbin]  # f * M(f)
-            sum_m += freq_data[cbin]  # M(f)
-
-        # handle the divide by zero case!
-        if sum_m != 0:
-            centroid = sum_fm / sum_m
-        else:
-            centroid = 0
-
-        self.value = centroid
+        self.value = tools.centroid(data);
 
     def serialize(self):
         """
@@ -82,10 +74,127 @@ class Feature_Centroid(Feature.Feature):
 class Feature_Rolloff(Feature.Feature):
 
     """
-    Implementation of Feature flux function.
+    Implementation of Feature Rolloff function.
 
     USES: amplitude vs time data.
     """
+
+    requireFullSong = False
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+        self.value = tools.RollOff(data)
+
+    def serialize(self):
+        """
+        Format:
+        value
+        """
+        return int(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = serialized
+        return newFeature
+
+
+"""
+ FULL SONG FEATURES:
+"""
+
+class Feature_Centroid_Avg(Feature.Feature):
+
+    """
+    Implementation of Feature Centroid function over a full song. Calculates the average over all sample packs.
+
+    centroid = sum(f * M(f)) / sum (M(f))
+     ^ for one sample pack
+
+    USES: amplitude vs time data.
+    """
+    requireFullSong = True
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+
+        sum = 0;
+        count = 0;
+
+        for samplePack in data:
+            sum += tools.Centroid(samplePack);
+            count += 1
+
+        average = sum / count
+
+        self.value = average
+
+    def serialize(self):
+        """
+        Format:
+        <length>:::<packed data>
+        """
+
+        return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = serialized
+        return newFeature
+
+
+class Feature_Rolloff_Avg(Feature.Feature):
+    """
+    Implementation of Feature Rolloff function over a full song. Calculates the average over all sample packs.
+
+    USES: amplitude vs time data.
+    """
+    requireFullSong = True
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+
+        sum = 0;
+        count = 0;
+
+        for samplePack in data:
+            sum += tools.RollOff(samplePack);
+            count += 1
+
+        average = sum / count
+
+        self.value = average
+
+    def serialize(self):
+        """
+        Format:
+        <length>:::<packed data>
+        """
+
+        return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = serialized
+        return newFeature
+
+class Feature_Flux(Feature.Feature):
+
+    """
+    Implementation of Feature flux function.
+
+    USES: amplitude vs time data.FrequencyAtFFTIndex
+    """
+
+    requireFullSong = True
 
     def __init__(self, data):
         Feature.Feature.__init__(self, data)
@@ -120,6 +229,7 @@ class Feature_Rolloff(Feature.Feature):
         newFeature = Feature_Centroid(None)
         newFeature.value = serialized
         return newFeature
+
 
 
 import sys

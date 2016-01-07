@@ -141,41 +141,63 @@ class Controller:
         # PULL IF FEATURE THAT ALREADY EXISTS
         self.cur.execute("SELECT data FROM FeatureData WHERE song_id=%s AND feature_name=%s AND pack_size=%s", (song_id, feature_name, pack_size))
 
-        class_ = getattr(features, feature_name)  # prepare the class for instanciation
+        class_ = getattr(features, feature_name)  # prepare the class for instantiation
         packList = []
 
         row = self.cur.fetchone()
 
-        if(row):  # RETURN THE LIST OF FEATURES
+        if row:  # RETURN THE LIST OF FEATURES
             logging.debug("Feature Data found.")
-            while (row):
+
+            # in the case that class_.requireFullSong == True, their should only be one row. But is returned in the same
+            # way.
+
+            while row:
                 feature = class_.unserialize(row[0])
                 packList.append(feature)
                 row = self.cur.fetchone()
-        else:  # NO ELEMENTS FOUND, COMPUTE
-            logging.debug("Feature Data not found. Generating feature data for all packs...")
-            rawData = self.fetchSongData(song_id)  # fetch raw data from file on disk
-            rawChunks = tools.chunks(rawData, pack_size)  # Split the song into chunks of size pack_size. this will be processed by the feature
 
-            # iterate and create a feature for each one to save to the DB
-            pack_index = 0
-            for dataPack in rawChunks:
-                feature = class_(dataPack)
+        else:  # NO ELEMENTS FOUND, COMPUTE
+            raw_data = self.fetchSongData(song_id)  # fetch raw data from file on disk
+            raw_chunks = []
+
+            if pack_size == -1:
+                raise "pack_size == -1 not yet supported."
+            else:
+                raw_chunks = tools.chunks(raw_data, pack_size)  # Split the song into chunks of size pack_size. this will be processed by the feature
+
+            logging.debug("Feature Data not found. Generating feature data for " +
+                          str(len(raw_data) / pack_size) + " packs...")
+
+
+            if class_.requireFullSong: # single feature creation for full song
+                feature = class_(raw_chunks)
                 packList.append(feature)
                 serialized = feature.serialize()
-                # logging.debug("Inserting feature for pack " + str(pack_index))
-                self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)", (song_id, pack_index, feature_name, pack_size, serialized))
-                pack_index += pack_size
+                self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)",
+                                 (song_id, 0, feature_name, pack_size, serialized))
 
-        self.commit()
+            else: # feature creation for single sample pack
+                # iterate and create a feature for each one to save to the DB
+                pack_index = 0
+                for dataPack in raw_chunks:
+                    feature = class_(dataPack)
+                    packList.append(feature)
+                    serialized = feature.serialize()
+                    self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)",
+                                     (song_id, pack_index, feature_name, pack_size, serialized))
+                    pack_index += pack_size
+
+            self.commit()  # commit the insertions
+
         return packList
 
     def fetchSongData(self, song_id):
         self.cur.execute("SELECT file_path FROM Songs WHERE song_id=%s", (song_id,))
         file_path = self.cur.fetchone()[0]
 
-        ampData, fs, enc = wavread(file_path)
-        return ampData
+        amp_data, fs, enc = wavread(file_path)
+        return amp_data
 
 
     def getTrainingSet(self, genres, maxSetSize):
@@ -286,7 +308,7 @@ def main(argv):
         elif os.path.isdir(absPath):
 
             if len(argv) < 4:
-                print "Required paramaters path maxcount genre0 genre1 ... genre n"
+                print "Required parameters path maxcount genre0 genre1 ... genre n"
                 print
 
             allFiles = os.listdir(absPath)
@@ -296,6 +318,7 @@ def main(argv):
             allWavs = []
             for file in allFiles:
                 filename, extension = os.path.splitext(file)
+                print extension
                 if(extension in supportedExt):
                     allWavs.append(file)
 
@@ -303,7 +326,7 @@ def main(argv):
             dbControl = Controller()
 
             for wav in allWavs:
-                if (maxCount < 0 or count < maxCount): # -1 means add all files
+                if maxCount == -1 or count < maxCount: # -1 means add all files
                     abswav = os.path.join(absPath, wav)
                     dbControl.addSong(abswav, "", "", "", genres)
                 count += 1
@@ -325,16 +348,12 @@ def main(argv):
             dbControl = Controller()
             dbControl.deleteAllFeatureData()
         else:
-            print "unkown clear param " + ctype
+            print "unknown clear param " + ctype
         pass
 
         
     print
     return
-
-
-
-    print
 
 
 if __name__ == "__main__":
