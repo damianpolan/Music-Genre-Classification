@@ -216,7 +216,6 @@ class Controller:
                     genreN: [ song_id list for genreN]
                 }
 
-
             Example:
                 database.getTrainingSet(['dubstep', 'house'], 100)
                 ^ will return a list containing 50 elements of each genre

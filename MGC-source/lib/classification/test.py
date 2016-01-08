@@ -29,7 +29,7 @@ def main(argv):
     dbControl = database.Controller()
 
     genres = ['dubstep', 'trance', 'house']
-    training_data = dbControl.getTrainingSet(genres, 40)
+    training_data = dbControl.getTrainingSet(genres, 40) #40
 
     ids_and_genres = []
     print training_data
@@ -56,7 +56,7 @@ def main(argv):
         classes.append(id_and_genre[1])
         log.debug("@@@@" + id_and_genre[1] + "  centroid=" + str(centroid) + " rolloff=" + str(rolloff))
 
-    machine = svm.SVC(C=1.0)
+    machine = svm.SVC(C=1.0, kernel='linear', degree=4)
 
     training_indexes = []
 
@@ -81,7 +81,9 @@ def main(argv):
         log.debug("Fitting.")
 
     holdOut = validation.HoldOutValidation(len(samples), onTrain, onValidate, onDoneTraining, validationPercent=0.2)
-    hitRate = holdOut.performValidation(shuffle=True)
+
+    # the divide should be the number of genres. An equal amount of samples must be trained from each genre
+    hitRate = holdOut.performValidation(shuffle=True, divide=len(genres))
     log.debug("hitRate = " + str(hitRate))
 
     # machine = svm.SVC()

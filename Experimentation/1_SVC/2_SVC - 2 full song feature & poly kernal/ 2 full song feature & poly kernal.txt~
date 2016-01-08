@@ -1,0 +1,31 @@
+
+Support Vector Classification used.
+Paramaters: 	C = 1.0
+	    	kernel = 'poly'
+	    	degree = 4
+
+todo:below
+
+Hold Out validation is done in this case. With the validation phase is only checking hit rate.
+
+
+Training Set:
+
+120 songs total.
+40 from each genre: House, Dubstep, Trance
+
+Training on Features which apply over all the sample packs in the song.
+
+Features used:
+Centroid_Avg
+Rolloff_Avg
+
+Notes:
+With three possible genres, if a class was randomly chosen, we would expect a hit rate of 30%.
+
+Results:
+	hitrate: 45% - 65%
+
+
+Thoughts and plans:
+Cross validation should be properly implemented for future validation.

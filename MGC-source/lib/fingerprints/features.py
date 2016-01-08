@@ -122,11 +122,11 @@ class Feature_Centroid_Avg(Feature.Feature):
 
     def initialize(self, data):
 
-        sum = 0;
-        count = 0;
+        sum = 0
+        count = 0
 
         for samplePack in data:
-            sum += tools.Centroid(samplePack);
+            sum += tools.Centroid(samplePack)
             count += 1
 
         average = sum / count
@@ -161,11 +161,11 @@ class Feature_Rolloff_Avg(Feature.Feature):
 
     def initialize(self, data):
 
-        sum = 0;
-        count = 0;
+        sum = 0
+        count = 0
 
         for samplePack in data:
-            sum += tools.RollOff(samplePack);
+            sum += tools.RollOff(samplePack)
             count += 1
 
         average = sum / count
