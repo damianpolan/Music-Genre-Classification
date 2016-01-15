@@ -28,8 +28,8 @@ def main(argv):
 
     dbControl = database.Controller()
 
-    genres = ['dubstep', 'trance', 'house']
-    training_data = dbControl.getTrainingSet(genres, 40) #40
+    genres = ['dubstep', 'house', 'trance']
+    training_data = dbControl.getTrainingSet(genres, 40)
 
     ids_and_genres = []
     print training_data
@@ -43,25 +43,22 @@ def main(argv):
     for id_and_genre in ids_and_genres:
         log.debug("Fetching " + str(id_and_genre))
 
+        features = []
         # featureDatas will contain an array of feature objects
-        feature_data_centroid = dbControl.pullFeatureForSong("Feature_Centroid_Avg", id_and_genre[0],packsize)
-        feature_data_rolloff = dbControl.pullFeatureForSong("Feature_Rolloff_Avg", id_and_genre[0],packsize)
+        features.append(dbControl.pullFeatureForSong("Feature_Centroid_Avg", id_and_genre[0],packsize)[0].value)
+        features.append(dbControl.pullFeatureForSong("Feature_Centroid_SD", id_and_genre[0],packsize)[0].value)
+        features.append(dbControl.pullFeatureForSong("Feature_Rolloff_Avg", id_and_genre[0],packsize)[0].value)
+        features.append(dbControl.pullFeatureForSong("Feature_Rolloff_SD", id_and_genre[0],packsize)[0].value)
 
-        # log.debug("feature_datas.length = " + str(len(feature_datas)))
-        # take 200 samples from the middle-ish
-        #for i in range(2000, 2200):
-        centroid = float(feature_data_centroid[0].value)
-        rolloff = float(feature_data_rolloff[0].value)
-        samples.append((centroid, rolloff))
+        samples.append(tuple(features))
         classes.append(id_and_genre[1])
-        log.debug("@@@@" + id_and_genre[1] + "  centroid=" + str(centroid) + " rolloff=" + str(rolloff))
 
-    machine = svm.SVC(C=1.0, kernel='linear', degree=4)
+    machine = svm.SVC(C=0.9, kernel='linear', degree=2)
 
     training_indexes = []
 
     def onTrain(index):
-        training_indexes.append(index);
+        training_indexes.append(index)
 
     def onValidate(index):
         predicted = machine.predict(samples[index])[0]
@@ -77,8 +74,9 @@ def main(argv):
             chosen_samples.append(samples[i])
             chosen_classes.append(classes[i])
 
+
+        log.debug("Fitting")
         machine.fit(chosen_samples, chosen_classes)
-        log.debug("Fitting.")
 
     holdOut = validation.HoldOutValidation(len(samples), onTrain, onValidate, onDoneTraining, validationPercent=0.2)
 

@@ -67,7 +67,7 @@ class Feature_Centroid(Feature.Feature):
     @staticmethod
     def unserialize(serialized):
         newFeature = Feature_Centroid(None)
-        newFeature.value = serialized
+        newFeature.value = float(serialized)
         return newFeature
 
 
@@ -97,7 +97,7 @@ class Feature_Rolloff(Feature.Feature):
     @staticmethod
     def unserialize(serialized):
         newFeature = Feature_Centroid(None)
-        newFeature.value = serialized
+        newFeature.value = int(serialized)
         return newFeature
 
 
@@ -144,7 +144,7 @@ class Feature_Centroid_Avg(Feature.Feature):
     @staticmethod
     def unserialize(serialized):
         newFeature = Feature_Centroid(None)
-        newFeature.value = serialized
+        newFeature.value = float(serialized)
         return newFeature
 
 
@@ -183,8 +183,95 @@ class Feature_Rolloff_Avg(Feature.Feature):
     @staticmethod
     def unserialize(serialized):
         newFeature = Feature_Centroid(None)
-        newFeature.value = serialized
+        newFeature.value = float(serialized)
         return newFeature
+
+
+class Feature_Centroid_SD(Feature.Feature):
+
+    """
+    Implementation of Feature Centroid function over a full song. Calculates the average over all sample packs.
+
+    centroid = sum(f * M(f)) / sum (M(f))
+     ^ for one sample pack
+
+    USES: amplitude vs time data.
+    """
+    requireFullSong = True
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+
+        centroids = list()
+        for samplePack in data:
+            centroids.append(tools.Centroid(samplePack))
+
+        self.value = tools.StandardDeviation(centroids)
+
+    def serialize(self):
+        """
+        Format:
+        <length>:::<packed data>
+        """
+
+        return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = float(serialized)
+        return newFeature
+
+
+
+class Feature_Rolloff_SD(Feature.Feature):
+
+    """
+    Implementation of Feature Centroid function over a full song. Calculates the average over all sample packs.
+
+    centroid = sum(f * M(f)) / sum (M(f))
+     ^ for one sample pack
+
+    USES: amplitude vs time data.
+    """
+    requireFullSong = True
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+
+        falloffs = list()
+        for samplePack in data:
+            falloffs.append(tools.RollOff(samplePack))
+
+        self.value = tools.StandardDeviation(falloffs)
+
+    def serialize(self):
+        """
+        Format:
+        <length>:::<packed data>
+        """
+
+        return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = float(serialized)
+        return newFeature
+
+
+
+
+
+
+
+
+
+
 
 class Feature_Flux(Feature.Feature):
 
@@ -200,22 +287,9 @@ class Feature_Flux(Feature.Feature):
         Feature.Feature.__init__(self, data)
 
     def initialize(self, data):
-        freq_data = tools.intoFrequencyDomain(tools.intoMono(data))
+        raise "Not implemented"
 
-        sum_m_total = 0
-        for cbin in range(0, len(freq_data)):
-            sum_m_total += freq_data[cbin]  # M(f)
-
-        sum_m_target = 0.85 * sum_m_total
-        sum_m_new = 0
-        r = 0
-        for cbin in range(0, len(freq_data)):
-            sum_m_new += freq_data[cbin]  # M(f)
-            r += 1
-            if sum_m_new > sum_m_target:
-                break
-
-        self.value = r
+        self.value = 0
 
     def serialize(self):
         """
@@ -227,7 +301,7 @@ class Feature_Flux(Feature.Feature):
     @staticmethod
     def unserialize(serialized):
         newFeature = Feature_Centroid(None)
-        newFeature.value = serialized
+        newFeature.value = float(serialized)
         return newFeature
 
 

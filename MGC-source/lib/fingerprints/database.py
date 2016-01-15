@@ -147,7 +147,6 @@ class Controller:
         row = self.cur.fetchone()
 
         if row:  # RETURN THE LIST OF FEATURES
-            logging.debug("Feature Data found.")
 
             # in the case that class_.requireFullSong == True, their should only be one row. But is returned in the same
             # way.

@@ -1,5 +1,6 @@
 import struct
 import numpy as np
+import math
 
 
 #####################################################
@@ -162,6 +163,29 @@ def RollOff(samplePack):
 
     return r
 
+
+def StandardDeviation(values):
+    """
+    Computes the standard deviation (SD) of a list of values.
+    :param values: the values to compute the SD of.
+    :return: the SD as a float
+    """
+    if type(values) is not list:
+        raise str("Invalid input exception ")
+
+    n = len(values)
+    mean = 0
+    for v in values:
+        mean += v
+
+    mean /= n
+
+    sum = 0
+    for v in values:
+        sum += math.pow(v - mean, 2)
+
+    SD = math.sqrt(sum / n)
+    return SD
 
 #####################################################
 #

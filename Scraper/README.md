@@ -1,3 +1,0 @@
-Website Music Scraper.
-
-It will make our music database full of awesome songs...

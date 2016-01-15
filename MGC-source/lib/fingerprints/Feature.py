@@ -16,6 +16,7 @@ class Feature(object):
     def __init__(self, data):
         Feature.requireFullSong = False
         if not isinstance(data, type(None)):
+            self.value = None
             self.initialize(data)
 
     def initialize(self, data):
