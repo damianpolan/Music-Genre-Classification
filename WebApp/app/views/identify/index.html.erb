@@ -1,12 +1,12 @@
-
+<!-- Materialize CSS -->
 <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" %>
 <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js" %>
 
 
-
+<meta name="viewport" content="width=device-width">
 <nav>
-  <div class="nav-wrapper green">
-    <a href="/" class="brand-logo right">Genrefy</a>
+  <div class="nav-wrapper blue-grey darken-1">
+    <a href="/" class="brand-logo center">Hank</a>
     <ul class="left">
       <li class="active">
         <a href="">Identify</a>
@@ -20,22 +20,34 @@
 </nav>
 </br>
 <div class="center">
-  <div class="left-align">
+  <p>Press to record and identify a song.</p>
+  <br/>
+  <!--<div class="preloader-wrapper small active">-->
+    <!--<div class="spinner-layer spinner-green-only">-->
+      <!--<div class="circle-clipper left">-->
+        <!--<div class="circle"></div>-->
+      <!--</div>-->
+      <!--<div class="gap-patch">-->
+        <!--<div class="circle"></div>-->
+      <!--</div>-->
+      <!--<div class="circle-clipper right">-->
+        <!--<div class="circle"></div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 
-  </div>
-  <!--<a class="waves-effect waves-light btn green">Record</a>-->
 
-  <div class="preloader-wrapper small active">
-    <div class="spinner-layer spinner-green-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div>
-      <div class="gap-patch">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
+  <img src="http://images-mediawiki-sites.thefullwiki.org/06/3/3/5/50346943281181602.jpg"></img>
+  <br/>
+  <a class="waves-effect waves-light btn blue-grey darken-1" onclick="record()">
+    Record
+  </a>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+
+  <a id="save" href="#">click</a>
+
 </div>
