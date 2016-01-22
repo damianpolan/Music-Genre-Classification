@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wavblob: MyText
+  classified_as: MyString
+  user_correct: MyString
+  user_genre: MyString
+  date: 2016-01-21 18:38:01
+
+two:
+  wavblob: MyText
+  classified_as: MyString
+  user_correct: MyString
+  user_genre: MyString
+  date: 2016-01-21 18:38:01

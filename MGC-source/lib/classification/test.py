@@ -3,6 +3,7 @@
 import sys
 import os
 import logging as log
+import pickle
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
 
@@ -28,6 +29,7 @@ def main(argv):
 
     dbControl = database.Controller()
 
+    required_features = ["Feature_Centroid_Avg", "Feature_Centroid_SD", "Feature_Rolloff_Avg", "Feature_Rolloff_SD"]
     genres = ['dubstep', 'house', 'trance']
     training_data = dbControl.getTrainingSet(genres, 40)
 
@@ -44,16 +46,13 @@ def main(argv):
         log.debug("Fetching " + str(id_and_genre))
 
         features = []
-        # featureDatas will contain an array of feature objects
-        features.append(dbControl.pullFeatureForSong("Feature_Centroid_Avg", id_and_genre[0],packsize)[0].value)
-        features.append(dbControl.pullFeatureForSong("Feature_Centroid_SD", id_and_genre[0],packsize)[0].value)
-        features.append(dbControl.pullFeatureForSong("Feature_Rolloff_Avg", id_and_genre[0],packsize)[0].value)
-        features.append(dbControl.pullFeatureForSong("Feature_Rolloff_SD", id_and_genre[0],packsize)[0].value)
+        for feat in required_features:
+            features.append(dbControl.pullFeatureForSong(feat, id_and_genre[0],packsize)[0].value)
 
         samples.append(tuple(features))
         classes.append(id_and_genre[1])
 
-    machine = svm.SVC(C=0.9, kernel='linear', degree=2)
+    machine = svm.SVC(C=1.0, kernel='linear', degree=2)
 
     training_indexes = []
 
@@ -75,7 +74,7 @@ def main(argv):
             chosen_classes.append(classes[i])
 
 
-        log.debug("Fitting")
+        log.debug("Fitting ...")
         machine.fit(chosen_samples, chosen_classes)
 
     holdOut = validation.HoldOutValidation(len(samples), onTrain, onValidate, onDoneTraining, validationPercent=0.2)
@@ -84,20 +83,15 @@ def main(argv):
     hitRate = holdOut.performValidation(shuffle=True, divide=len(genres))
     log.debug("hitRate = " + str(hitRate))
 
-    # machine = svm.SVC()
-    # machine.fit(desc, classes)
 
-    # desc = [ [1, 1], [11,11]]
-    # classes = ['b', 'a']
-    # machine.fit(desc, classes)
 
-    # print machine.predict([3, 3])
 
-    # classifier = SupportVectorCLS()
+    pickled_save_path = "/home/damian/Music-Genre-Classification/Classifiers/SVM_Latest.pickled"
+    machine.required_features = required_features
 
-    # assign descriptors and classifications
+    # save the SVM to directory
+    pickle.dump(machine, open( pickled_save_path, "wb" ) )
 
-    pass
 
 import warnings
 if __name__ == "__main__":

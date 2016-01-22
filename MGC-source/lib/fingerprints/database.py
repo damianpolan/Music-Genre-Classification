@@ -191,6 +191,37 @@ class Controller:
 
         return packList
 
+
+    def computeFeaturesForSong(self, file_path, features, pack_size):
+        """
+        Computes each of the features (must be full_song features) for the song recording.
+        This method is used for one shot computation of a songs features.
+        :param file_path:
+        :param features:
+        :param pack_size:
+        :return: a list of values with length = len(features). Each item is the resulting feature value corresponding to features[].
+        """
+
+        # will hold the evaluated feature values
+        feature_values = []
+
+        raw_data, fs, enc = wavread(file_path)
+        raw_chunks = tools.chunks(raw_data, pack_size)
+
+        for feature_name in features:
+            class_ = getattr(features, feature_name)
+            if class_.requireFullSong is False:
+                raise "Every feature must be a full song feature"
+                return
+
+            feature = class_(raw_chunks)
+            feature_values.append(feature.value)
+
+        return feature_values
+
+
+
+
     def fetchSongData(self, song_id):
         self.cur.execute("SELECT file_path FROM Songs WHERE song_id=%s", (song_id,))
         file_path = self.cur.fetchone()[0]

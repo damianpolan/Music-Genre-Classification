@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
 
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+  resources :recordings
+
   #views
   # get 'identify/index'
   # get 'splash/index'
@@ -8,6 +21,12 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   root 'identify#index'
+
+  post 'identify_song' => 'identify#classify'
+
+
+  # route for identifying a genre
+
 
 
   # Example of regular route:

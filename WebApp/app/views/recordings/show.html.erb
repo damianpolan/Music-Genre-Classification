@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Wavblob:</strong>
+  <%= @recording.wavblob %>
+</p>
+
+<p>
+  <strong>Classified as:</strong>
+  <%= @recording.classified_as %>
+</p>
+
+<p>
+  <strong>User correct:</strong>
+  <%= @recording.user_correct %>
+</p>
+
+<p>
+  <strong>User genre:</strong>
+  <%= @recording.user_genre %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @recording.date %>
+</p>
+
+<%= link_to 'Edit', edit_recording_path(@recording) %> |
+<%= link_to 'Back', recordings_path %>

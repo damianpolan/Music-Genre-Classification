@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Recordings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Wavblob</th>
+      <th>Classified as</th>
+      <th>User correct</th>
+      <th>User genre</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recordings.each do |recording| %>
+      <tr>
+        <td><%= recording.wavblob %></td>
+        <td><%= recording.classified_as %></td>
+        <td><%= recording.user_correct %></td>
+        <td><%= recording.user_genre %></td>
+        <td><%= recording.date %></td>
+        <td><%= link_to 'Show', recording %></td>
+        <td><%= link_to 'Edit', edit_recording_path(recording) %></td>
+        <td><%= link_to 'Destroy', recording, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recording', new_recording_path %>
