@@ -1,8 +1,10 @@
 import sys, os
 import pickle
+import numpy as np
+import datetime
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
-from fingerprints import database
+from fingerprints import tools
 
 def main(argv):
     """
@@ -24,11 +26,22 @@ def main(argv):
         SVM_filepath = argv[1]
 
     WAV_filepath = argv[0]
+    #temp:
+    #WAV_filepath = "/home/damian/Music/Trance/Airscape Feat. Jes - My Love (Johan Gielen Radio Edit).wav"
+
+
+    # start_time = datetime.datetime.now()
 
     machine = pickle.load(open(SVM_filepath, "rb"))
 
+    evaluated_features = tools.computeFeaturesForFullSong(WAV_filepath, machine.required_features, machine.pack_size)
 
+    result = machine.predict(np.array(evaluated_features).reshape(1, -1))
 
+    # end_time = datetime.datetime.now()
+    # print "time: " + str(end_time - start_time)
+
+    print result[0]
 
 
 import sys

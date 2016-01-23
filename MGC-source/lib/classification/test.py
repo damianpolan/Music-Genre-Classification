@@ -87,7 +87,11 @@ def main(argv):
 
 
     pickled_save_path = "/home/damian/Music-Genre-Classification/Classifiers/SVM_Latest.pickled"
+
+    # set some meta paramaters
     machine.required_features = required_features
+    machine.pack_size = packsize
+    machine.genres = genres
 
     # save the SVM to directory
     pickle.dump(machine, open( pickled_save_path, "wb" ) )

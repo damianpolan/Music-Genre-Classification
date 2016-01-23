@@ -58,16 +58,15 @@ def unpackSongArray(packed):
 
 def chunks(l, n):
     """
-    Yield successive n-sized chunks from l.
     Splits an array into even size chunks.
 
     l is the array.
-    n is the number of chunks
-
-    From: http://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks-in-python
+    n is the size of the chunk
     """
+    chunked = []
     for i in xrange(0, len(l), n):
-        yield l[i:i+n]
+        chunked.append(l[i:i+n])
+    return chunked
 
 
 
@@ -178,7 +177,10 @@ def StandardDeviation(values):
     for v in values:
         mean += v
 
-    mean /= n
+    if n == 0:
+        return 0
+
+    mean = 0
 
     sum = 0
     for v in values:
@@ -198,3 +200,38 @@ import logging
 def defaultLog():
     logging.basicConfig(format='%(asctime)s -   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 
+
+#####################################################
+#
+#   FEATURE FUNCTIONS
+#
+#####################################################
+from scikits.audiolab import wavread
+import features
+
+def computeFeaturesForFullSong(file_path, feature_list, pack_size):
+    """
+    Computes each of the features (must be full_song features) for the song recording.
+    This method is used for one shot computation of a songs features.
+    :param file_path:
+    :param features:
+    :param pack_size:
+    :return: a tuple of values with length = len(features). Each item is the resulting feature value corresponding to features[].
+    """
+
+    # will hold the evaluated feature values
+    feature_values = []
+
+    raw_data, fs, enc = wavread(file_path)
+    raw_chunks = chunks(raw_data, pack_size)
+
+    for feature_name in feature_list:
+        # print "Computing " + feature_name
+        class_ = getattr(features, feature_name)
+        if class_.requireFullSong is False: # ensure full song
+            raise "Every feature must be a full song feature"
+
+        feature = class_(raw_chunks)
+        feature_values.append(feature.value)
+
+    return feature_values

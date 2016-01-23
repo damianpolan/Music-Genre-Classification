@@ -19,6 +19,8 @@ class IdentifyController < ApplicationController
       audio.rewind
 
       save_path = Rails.root.join("private/recordings/#{audio.original_filename}")
+      #save_path = Rails.root.join("private/recordings/recent.wav")
+
       rec.wav_path = save_path # set the wav_path of the Recording model
 
       File.open(save_path, 'wb') do |f|
@@ -26,10 +28,12 @@ class IdentifyController < ApplicationController
       end
 
       if rec.save
-
         # saved so continue with the classification
-
-        render :text => "Genre Here"
+        cmd_s = "source /home/damian/Music-Genre-Classification/ENV/bin/activate;/home/damian/Music-Genre-Classification/ENV/bin/python2.7 /home/damian/Music-Genre-Classification/MGC-source/lib/classification/SVM_classify.py #{save_path}"
+        puts cmd_s
+        result = %x( #{cmd_s} )
+        puts result
+        render :text => result
       else
         render :text => "Failed to save recording"
       end

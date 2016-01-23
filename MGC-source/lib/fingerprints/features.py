@@ -168,7 +168,10 @@ class Feature_Rolloff_Avg(Feature.Feature):
             sum += tools.RollOff(samplePack)
             count += 1
 
-        average = sum / count
+        if count == 0:
+            average = 0
+        else:
+            average = sum / count
 
         self.value = average
 

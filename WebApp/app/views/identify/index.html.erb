@@ -4,51 +4,45 @@
 
 
 <meta name="viewport" content="width=device-width">
-<nav>
-  <div class="nav-wrapper blue-grey darken-1">
-    <a href="/" class="brand-logo center">Hank</a>
-    <ul class="left">
-      <li class="active">
-        <a href="">Identify</a>
-      </li>
-      <li>
-        <a href="">Contact</a>
-      </li>
-    </ul>
-  </div>
 
-</nav>
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper blue-grey darken-1">
+      <a class="brand-logo center">Hank</a>
+      <ul class="left">
+        <li class="active">
+          <a href="">Identify</a>
+        </li>
+        <li>
+          <a href="">Contact</a>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+</div>
+
 </br>
 <div class="center">
-  <p>Press to record and identify a song.</p>
-  <br/>
-  <!--<div class="preloader-wrapper small active">-->
-    <!--<div class="spinner-layer spinner-green-only">-->
-      <!--<div class="circle-clipper left">-->
-        <!--<div class="circle"></div>-->
-      <!--</div>-->
-      <!--<div class="gap-patch">-->
-        <!--<div class="circle"></div>-->
-      <!--</div>-->
-      <!--<div class="circle-clipper right">-->
-        <!--<div class="circle"></div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
+  <h1 class="grey-text" id="genre"></h1>
 
+  <p>Press to record and identify the genre of a song.</p>
 
-  <img src="http://images-mediawiki-sites.thefullwiki.org/06/3/3/5/50346943281181602.jpg"></img>
-  <br/>
-  <a class="waves-effect waves-light btn blue-grey darken-1" onclick="record()">
-    Record
-  </a>
-  <br/>
-  <br/>
-  <a id="save" href="#">download</a>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
+  <div class="inline-block">
+    <a class="waves-effect waves-red btn blue-grey darken-1" id="record" onclick="recordAndIdentify()">
+      Record
+    </a>
+    <div class="progress white">
+      <div class="indeterminate grey" id="progbar" hidden></div>
+    </div>
+    <a class="grey-text text-lighten-5" id="save" href="#">download</a>
+  </div>
 
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 
 </div>

@@ -15,8 +15,8 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/MGC-source$test.coverage" NAME="test Coverage Results" MODIFIED="1453424478888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lib/classification" />
-    <SUITE FILE_PATH="coverage/MGC-source$SVM_classify.coverage" NAME="SVM_classify Coverage Results" MODIFIED="1453425770215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lib/classification" />
+    <SUITE FILE_PATH="coverage/MGC-source$test.coverage" NAME="test Coverage Results" MODIFIED="1453511438209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lib/classification" />
+    <SUITE FILE_PATH="coverage/MGC-source$SVM_classify.coverage" NAME="SVM_classify Coverage Results" MODIFIED="1453511414211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lib/classification" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -27,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SVM_classify.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SVM_classify.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/classification/SVM_classify.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50549453">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="27" column="26" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/classification/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="11" selection-end-column="33" />
+            <state vertical-scroll-proportion="2.2087913">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding>
                 <element signature="e#2#12#0" expanded="true" />
               </folding>
@@ -55,23 +55,9 @@
         <entry file="file://$PROJECT_DIR$/lib/fingerprints/tools.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <caret line="222" column="23" selection-start-line="222" selection-start-column="23" selection-end-line="222" selection-end-column="23" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="features.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/fingerprints/features.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="228" column="19" selection-start-line="228" selection-start-column="19" selection-end-line="228" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#149#748#0" expanded="false" />
-                <element signature="e#1463#2012#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -81,20 +67,20 @@
         <entry file="file://$PROJECT_DIR$/lib/fingerprints/database.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="220" column="0" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
+              <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="40" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-                <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-                <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-                <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-                <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-                <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-                <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-                <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-                <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-                <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-                <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-                <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+                <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+                <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+                <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+                <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+                <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+                <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+                <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+                <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+                <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+                <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+                <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
               </folding>
             </state>
           </provider>
@@ -106,6 +92,20 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="features.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/fingerprints/features.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="211" column="55" selection-start-line="211" selection-start-column="55" selection-end-line="211" selection-end-column="55" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+                <element signature="e#149#748#0" expanded="false" />
+                <element signature="e#1463#2012#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,11 +122,11 @@
       <list>
         <option value="$PROJECT_DIR$/lib/classification/validation.py" />
         <option value="$PROJECT_DIR$/lib/fingerprints/Feature.py" />
-        <option value="$PROJECT_DIR$/lib/fingerprints/tools.py" />
-        <option value="$PROJECT_DIR$/lib/fingerprints/features.py" />
-        <option value="$PROJECT_DIR$/lib/classification/test.py" />
         <option value="$PROJECT_DIR$/lib/fingerprints/database.py" />
+        <option value="$PROJECT_DIR$/lib/fingerprints/features.py" />
         <option value="$PROJECT_DIR$/lib/classification/SVM_classify.py" />
+        <option value="$PROJECT_DIR$/lib/fingerprints/tools.py" />
+        <option value="$PROJECT_DIR$/lib/classification/test.py" />
       </list>
     </option>
   </component>
@@ -136,9 +136,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="468" />
+    <option name="x" value="429" />
     <option name="y" value="24" />
-    <option name="width" value="1397" />
+    <option name="width" value="1491" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -253,7 +253,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.SVM_classify">
+  <component name="RunManager" selected="Python.test">
     <configuration default="false" name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -286,7 +286,7 @@
       <module name="MGC-source" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lib/classification/SVM_classify.py" />
-      <option name="PARAMETERS" value="$PROJECT_DIR$/../WebApp/private/recordings/1453420365391.wav" />
+      <option name="PARAMETERS" value="$PROJECT_DIR$/../WebApp/private/recordings/recent.wav" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -962,8 +962,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.SVM_classify" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test" />
+        <item index="0" class="java.lang.String" itemvalue="Python.test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.SVM_classify" />
       </list>
     </recent_temporary>
   </component>
@@ -987,12 +987,12 @@
       <workItem from="1452898296028" duration="275000" />
       <workItem from="1452898745044" duration="2044000" />
       <workItem from="1453144144515" duration="35000" />
-      <workItem from="1453420444996" duration="3475000" />
+      <workItem from="1453420444996" duration="12447000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71079000" />
+    <option name="totallyTimeSpent" value="80051000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1004,7 +1004,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="468" y="24" width="1397" height="1056" extended-state="4" />
+    <frame x="429" y="24" width="1491" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1013,10 +1013,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3879837" sideWeight="0.5126685" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38064516" sideWeight="0.48733154" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38064516" sideWeight="0.48733154" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.49595687" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1971831" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1968122" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1041,18 +1041,18 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38790408" sideWeight="0.48733154" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38064516" sideWeight="0.48733154" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.49595687" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15478165" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1971831" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299389" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35245046" sideWeight="0.4851752" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3516129" sideWeight="0.4851752" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1071,7 +1071,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/lib/fingerprints/features.py</url>
-          <line>210</line>
+          <line>213</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
@@ -1082,7 +1082,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="28" />
+      <option name="time" value="30" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1119,17 +1119,17 @@
           <caret line="148" column="46" selection-start-line="148" selection-start-column="46" selection-end-line="148" selection-end-column="46" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
@@ -1180,17 +1180,17 @@
           <caret line="148" column="46" selection-start-line="148" selection-start-column="46" selection-end-line="148" selection-end-column="46" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
@@ -1238,17 +1238,17 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
@@ -1291,17 +1291,17 @@
           <caret line="38" column="61" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
@@ -1359,17 +1359,17 @@
           <caret line="185" column="52" selection-start-line="185" selection-start-column="52" selection-end-line="185" selection-end-column="52" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
@@ -1410,17 +1410,17 @@
           <caret line="294" column="21" selection-start-line="294" selection-start-column="21" selection-end-line="294" selection-end-column="21" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
@@ -1478,17 +1478,17 @@
           <caret line="172" column="48" selection-start-line="172" selection-start-column="48" selection-end-line="172" selection-end-column="48" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
@@ -1534,13 +1534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ENV/lib/python2.7/site-packages/sklearn/utils/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80453753">
-          <caret line="430" column="51" selection-start-line="430" selection-start-column="51" selection-end-line="430" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ENV/lib/python2.7/site-packages/sklearn/svm/classes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1569,14 +1562,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/fingerprints/Feature.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Classifiers/SVM_1.pickled">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4945055">
@@ -1588,7 +1573,7 @@
     <entry file="file://$PROJECT_DIR$/lib/fingerprints/features.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="228" column="19" selection-start-line="228" selection-start-column="19" selection-end-line="228" selection-end-column="19" />
+          <caret line="211" column="55" selection-start-line="211" selection-start-column="55" selection-end-line="211" selection-end-column="55" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <element signature="e#149#748#0" expanded="false" />
@@ -1597,10 +1582,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/fingerprints/Feature.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ENV/lib/python2.7/site-packages/sklearn/utils/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43223444">
+          <caret line="406" column="41" selection-start-line="406" selection-start-column="41" selection-end-line="406" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/fingerprints/tools.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <caret line="222" column="23" selection-start-line="222" selection-start-column="23" selection-end-line="222" selection-end-column="23" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -1610,40 +1611,40 @@
     <entry file="file://$PROJECT_DIR$/lib/fingerprints/database.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="220" column="0" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
+          <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="40" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453425506082" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
-            <marker date="1453425506082" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
-            <marker date="1453425506082" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
-            <marker date="1453425506082" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
-            <marker date="1453425506082" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
-            <marker date="1453425506082" expanded="true" signature="9144:9186" placeholder="SELECT file_... Songs" />
-            <marker date="1453425506082" expanded="true" signature="10206:10245" placeholder="SELECT song_... Genres" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/classification/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="11" selection-end-column="33" />
-          <folding>
-            <element signature="e#2#12#0" expanded="true" />
+            <marker date="1453479884283" expanded="true" signature="1520:1860" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="1890:2161" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="2191:2625" placeholder="CREATE TABLE... IF" />
+            <marker date="1453479884283" expanded="true" signature="3866:3910" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="4143:4224" placeholder="INSERT INTO Songs... " />
+            <marker date="1453479884283" expanded="true" signature="4476:4527" placeholder="INSERT INTO Genres... " />
+            <marker date="1453479884283" expanded="true" signature="5718:5798" placeholder="SELECT data FeatureData" />
+            <marker date="1453479884283" expanded="true" signature="7160:7264" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="7748:7852" placeholder="INSERT INTO FeatureData... " />
+            <marker date="1453479884283" expanded="true" signature="8140:8182" placeholder="SELECT file_... Songs" />
+            <marker date="1453479884283" expanded="true" signature="9202:9241" placeholder="SELECT song_... Genres" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/classification/SVM_classify.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50549453">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="26" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classification/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.2087913">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="e#2#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
