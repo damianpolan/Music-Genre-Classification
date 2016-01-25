@@ -22,5 +22,10 @@ module WebApp
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # config.autoload_paths += %W(/var/lib/gems/2.1.0/gems/materialize-sass-0.97.5/app/assets/*)
+    # config.autoload_paths += %W(/var/lib/gems/2.1.0/gems/materialize-sass-0.97.5/app/assets/fonts)
+    # config.autoload_paths += %W(/var/lib/gems/2.1.0/gems/materialize-sass-0.97.5/app/assets/javascripts)
+    # config.autoload_paths += %W(/var/lib/gems/2.1.0/gems/materialize-sass-0.97.5/app/assets/stylesheets)
   end
 end

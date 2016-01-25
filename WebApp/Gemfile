@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 #materialistic CSS
-# gem 'materialize-sass'
+gem 'materialize-sass'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

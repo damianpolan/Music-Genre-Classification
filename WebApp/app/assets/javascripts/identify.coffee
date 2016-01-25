@@ -7,7 +7,7 @@
 
 
 #Total recording time
-RECORD_TIME = 3000
+RECORD_TIME = 1000
 recording = false;
 
 document.recordAndIdentify = () -> (
@@ -67,6 +67,8 @@ sendWavBlobForIdentification = (blob, callback) -> (
 )
 
 
+audioContext = null
+
 recordAudio = (callback) ->
   """
     Records the users audio for time RECORD_TIME and returns a blob to the callback
@@ -79,24 +81,27 @@ recordAudio = (callback) ->
     navigator.getUserMedia({audio:true},
       (mediaStream) -> (
 #        document.setMessage("Recording")
-        context = new (window.AudioContext || window.webkitAudioContext)()
-        inputPoint = context.createGain();
+
+        if !audioContext
+          audioContext = new (window.AudioContext || window.webkitAudioContext)()
+
+        inputPoint = audioContext.createGain()
 
         # Create an AudioNode from the stream.
-        realAudioInput = context.createMediaStreamSource(mediaStream)
+        realAudioInput = audioContext.createMediaStreamSource(mediaStream)
         audioInput = realAudioInput
         audioInput.connect(inputPoint)
 
-        analyserNode = context.createAnalyser()
+        analyserNode = audioContext.createAnalyser()
         analyserNode.fftSize = 2048
         inputPoint.connect( analyserNode )
 
-        audioRecorder = new Recorder( inputPoint );
+        audioRecorder = new Recorder( inputPoint )
 
-        zeroGain = context.createGain();
-        zeroGain.gain.value = 0.0;
-        inputPoint.connect( zeroGain );
-        zeroGain.connect( context.destination );
+        zeroGain = audioContext.createGain()
+        zeroGain.gain.value = 0.0
+        inputPoint.connect( zeroGain )
+        zeroGain.connect( audioContext.destination )
 
         audioRecorder.record();
         setTimeout () ->

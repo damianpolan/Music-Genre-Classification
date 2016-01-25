@@ -7,6 +7,10 @@ class IdentifyController < ApplicationController
   def index
   end
 
+  def contact
+
+  end
+
   def classify
 
     puts "Classify"

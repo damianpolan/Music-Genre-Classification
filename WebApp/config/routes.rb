@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   root 'identify#index'
+  get 'contact' => 'identify#contact'
 
   post 'identify_song' => 'identify#classify'
 
