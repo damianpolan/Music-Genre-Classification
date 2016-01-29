@@ -107,7 +107,6 @@ recordAudio = (callback) ->
         setTimeout () ->
           audioRecorder.stop()
           wavF = audioRecorder.exportWAV((blob) -> (
-            console.log(blob)
             Recorder.setupDownload(blob, "recording.wav")
             mediaStream.getAudioTracks()[0].stop()
 

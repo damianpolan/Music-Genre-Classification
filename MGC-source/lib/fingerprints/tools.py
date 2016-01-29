@@ -91,7 +91,7 @@ def intoFrequencyDomain(data):
     if isinstance(data[0], list): 
         # in stereo format
         if(len(data[0]) != 2):
-            raise "Must be list of length 2"
+            raise "Must be list of length 2. For left and right speakers."
 
         fft = np.fft.fft(data)
         fft = fft[0:len(fft) / 2]
@@ -188,6 +188,33 @@ def StandardDeviation(values):
 
     SD = math.sqrt(sum / n)
     return SD
+
+def Spectral_Flux(pack1, pack2):
+    """
+    Calculates the average of spectral flux difference between two sample packs.
+
+    The temporal location of pack1 should be before that of pack2.
+
+    :param pack1: (i-1)th sample pack
+    :param pack2: (i)th sample pack
+    :return:
+    """
+
+    fft1 = intoFrequencyDomain(intoMono(pack1))
+    fft2 = intoFrequencyDomain(intoMono(pack2))
+    fluxes = list()
+
+
+    for i in range( min(len(fft1), len(fft2))):
+        fluxes.append(abs(fft2[i] - fft1[i]))
+
+    sum = 0
+    for flux in fluxes:
+        sum += flux
+
+    avg = sum / len(fluxes)
+    return avg
+
 
 #####################################################
 #

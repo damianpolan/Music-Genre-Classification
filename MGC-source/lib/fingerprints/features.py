@@ -138,7 +138,6 @@ class Feature_Centroid_Avg(Feature.Feature):
         Format:
         <length>:::<packed data>
         """
-
         return float(self.value)
 
     @staticmethod
@@ -160,7 +159,6 @@ class Feature_Rolloff_Avg(Feature.Feature):
         Feature.Feature.__init__(self, data)
 
     def initialize(self, data):
-
         sum = 0
         count = 0
 
@@ -228,7 +226,6 @@ class Feature_Centroid_SD(Feature.Feature):
         return newFeature
 
 
-
 class Feature_Rolloff_SD(Feature.Feature):
 
     """
@@ -267,19 +264,14 @@ class Feature_Rolloff_SD(Feature.Feature):
         return newFeature
 
 
-
-
-
-
-
-
-
-
-
 class Feature_Flux(Feature.Feature):
 
     """
     Implementation of Feature flux function.
+
+    This is a change in amplitude flow over the time domain over the whole song.
+    It is calculated by every sample in the song and then averaged rather than per sample back.
+    This method avoids loss off data between the last sample of the (i-1)th and the (i)th pack.
 
     USES: amplitude vs time data.FrequencyAtFFTIndex
     """
@@ -290,9 +282,133 @@ class Feature_Flux(Feature.Feature):
         Feature.Feature.__init__(self, data)
 
     def initialize(self, data):
-        raise "Not implemented"
 
-        self.value = 0
+        prev_magnitude = 0
+        total_count = 0
+        total_flux = 0
+
+        for sample_pack in data:
+            sample_pack = tools.intoMono(sample_pack)
+            for i in range(0, len(sample_pack)):
+                mag = sample_pack[i]
+                total_flux += abs(prev_magnitude - mag)
+                total_count += 1
+                prev_magnitude = mag
+
+        total_flux /= total_count
+
+        self.value = total_flux
+
+    def serialize(self):
+        """
+        Format:
+        value
+        """
+        return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = float(serialized)
+        return newFeature
+
+
+
+class Feature_Spec_Flux_Avg(Feature.Feature):
+
+    """
+    Implementation of Feature spectral flux function.
+    Spectral flux is calculated over the frequency domain.
+
+    USES: amplitude vs time data.FrequencyAtFFTIndex
+    """
+
+    requireFullSong = True
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+        sum = 0
+        count = 0
+
+        for i in range(1, len(data)):
+            sum += tools.Spectral_Flux(data[i-1], data[i])
+            count += 1
+
+        average = sum / count
+        print average
+
+        self.value = average
+
+    def serialize(self):
+        """
+        Format:
+        value
+        """
+        return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = float(serialized)
+        return newFeature
+
+
+
+class Feature_Spec_Flux_SD(Feature.Feature):
+
+    """
+    Implementation of Feature spectral flux function.
+    Spectral flux is calculated over the frequency domain.
+
+    USES: amplitude vs time data.FrequencyAtFFTIndex
+    """
+
+    requireFullSong = True
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+        fluxes = []
+        for i in range(1, len(data)):
+            fluxes.append(tools.Spectral_Flux(data[i-1], data[i]))
+
+        self.value = tools.StandardDeviation(fluxes)
+
+    def serialize(self):
+        """
+        Format:
+        value
+        """
+        return float(self.value)
+
+    @staticmethod
+    def unserialize(serialized):
+        newFeature = Feature_Centroid(None)
+        newFeature.value = float(serialized)
+        return newFeature
+
+
+
+
+class Feature_BPM(Feature.Feature):
+
+    #
+    """
+    http://stackoverflow.com/questions/657073/how-to-detect-the-bpm-of-a-song-in-php
+    http://marsyasweb.appspot.com/assets/docs/sourceDoc/html/classMarsyas_1_1BeatReferee.html#details
+    """
+
+    requireFullSong = True
+
+    def __init__(self, data):
+        Feature.Feature.__init__(self, data)
+
+    def initialize(self, data):
+
+        self.value = 120
 
     def serialize(self):
         """
@@ -306,6 +422,8 @@ class Feature_Flux(Feature.Feature):
         newFeature = Feature_Centroid(None)
         newFeature.value = float(serialized)
         return newFeature
+
+
 
 
 
