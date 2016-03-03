@@ -1,0 +1,1 @@
+http://archive.gamedev.net/archive/reference/programming/features/beatdetection/index.html

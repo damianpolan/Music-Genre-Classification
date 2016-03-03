@@ -173,6 +173,7 @@ class Controller:
                 feature = class_(raw_chunks)
                 packList.append(feature)
                 serialized = feature.serialize()
+                logging.debug(feature_name + ".value = " + str(feature.value))
                 self.cur.execute("INSERT INTO FeatureData (song_id, pack_index, feature_name, pack_size, data) VALUES (%s, %s, %s, %s, %s)",
                                  (song_id, 0, feature_name, pack_size, serialized))
 

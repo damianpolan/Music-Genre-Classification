@@ -103,7 +103,7 @@ def intoFrequencyDomain(data):
         fft = fft[0:len(fft) / 2] # we remove the last half of the data (the -ve frequencies).
         return [abs(element) for element in fft]
 
-def FrequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
+def FrequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44100):
     """
     Calculates the frequency of the given bin in a FFT result (frequency domain).
 
@@ -116,7 +116,7 @@ def FrequencyAtFFTIndex(binIndex, fftLength, sampleRateHz=44000):
 
     """
 
-    return binIndex * (sampleRateHz / 2) / fftLength
+    return binIndex * (sampleRateHz / 2.0) / float(fftLength)
 
 
 def Centroid(samplePack):

@@ -44,9 +44,17 @@ def main(argv):
         "Feature_Rolloff_Avg",
         "Feature_Rolloff_SD",
         "Feature_Flux",
-        "Feature_Spec_Flux_Avg"]
-    genres = ['dubstep', 'house', 'trance']
-    training_data = dbControl.getTrainingSet(genres, 10)
+        "Feature_Spec_Flux_Avg",
+        "Feature_Spec_Flux_SD"
+    ]
+
+    genres = [
+        'dubstep',
+        'house',
+        'trance'
+    ]
+
+    training_data = dbControl.getTrainingSet(genres, 40)
 
     ids_and_genres = []
     print training_data
@@ -67,7 +75,7 @@ def main(argv):
         samples.append(np.array(features))
         classes.append(id_and_genre[1])
 
-    machine = svm.SVC(C=1.0, kernel='linear', shrinking=True, verbose=False)
+    machine = svm.SVC(C=1.0, kernel='poly', degree=2, shrinking=True, verbose=False)
     # machine = mlp.Classifier(
     #         layers=(mlp.Layer("Sigmoid", units=4),
     #                 mlp.Layer("Linear", units=len(genres))),
@@ -76,6 +84,7 @@ def main(argv):
 
 
     training_indexes = []
+    hitRates = {}
 
     def onTrain(index):
         training_indexes.append(index)
@@ -84,7 +93,24 @@ def main(argv):
 
         predicted = machine.predict(np.array([samples[index]]))[0]
         expected = classes[index]
+
         is_valid = (predicted == expected)
+
+        if not hitRates.has_key(expected):
+            hitRates[expected] = {}
+            hitRates[expected]["total"] = 0
+            hitRates[expected]["correct"] = 0
+
+        hitRates[expected]["total"] += 1
+
+
+        if predicted == expected:
+            hitRates[expected]["correct"] += 1
+        else:
+            if not hitRates[expected].has_key(predicted):
+                hitRates[expected][predicted] = 0
+            hitRates[expected][predicted] += 1
+
         log.debug(str(is_valid) + "  \t got " + str(predicted) + " expected " + str(expected))
         return is_valid
 
@@ -104,8 +130,14 @@ def main(argv):
     holdOut = validation.HoldOutValidation(len(samples), onTrain, onValidate, onDoneTraining, validationPercent=0.2)
 
     # the divide should be the number of genres. An equal amount of samples must be trained from each genre
-    hitRate = holdOut.performValidation(shuffle=True, divide=len(genres))
+    hitRate = holdOut.performValidation(shuffle=False, divide=len(genres))
     log.debug("hitRate = " + str(hitRate))
+
+    for genre, v in hitRates.iteritems():
+        log.debug(str(genre).upper() + ": " + str(v["correct"]) + "/" + str(v["total"]))
+        for hitg, amount in v.iteritems():
+            if hitg not in ["correct", "total"]:
+                log.debug("\t\t" + str(hitg) + "= " + str(amount))
 
     pickled_save_path = "/home/damian/Music-Genre-Classification/Classifiers/SVM_Latest.pickled"
 

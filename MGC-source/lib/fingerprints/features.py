@@ -337,7 +337,6 @@ class Feature_Spec_Flux_Avg(Feature.Feature):
             count += 1
 
         average = sum / count
-        print average
 
         self.value = average
 
@@ -399,6 +398,15 @@ class Feature_BPM(Feature.Feature):
     """
     http://stackoverflow.com/questions/657073/how-to-detect-the-bpm-of-a-song-in-php
     http://marsyasweb.appspot.com/assets/docs/sourceDoc/html/classMarsyas_1_1BeatReferee.html#details
+
+    Working Demo:
+        https://www.youtube.com/watch?v=jZoQ1S73Bac
+        http://beetnik.fds.im/
+        JSFIDDLE:
+        http://jsfiddle.net/eldog/hspz9cp8/
+
+    Algorithm:
+    http://archive.gamedev.net/archive/reference/programming/features/beatdetection/index.html
     """
 
     requireFullSong = True
