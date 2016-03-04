@@ -174,7 +174,7 @@ def main(args):
             energy_averages.append(average_energy)
             energy_averages_SDs.append(average_energy_diff)
 
-           # determined_thresh = average_energy * (THRESHOLD_C + 0.5 *
+           # determined_thresh = average_energy * (THRESHOLD_C + 0.5 * average_energy_SD
             determined_thresh = average_energy * 1.3 - 0.5 * average_energy_diff
 
 
@@ -260,7 +260,6 @@ def main(args):
     # METHOD 3:
     # Cross correlation
     #############################################
-
 
 
     AMP_MAX = 10000

@@ -108,3 +108,53 @@ def find_n_maxes(l, n):
 
 
     return maxes
+
+
+def normalize(data):
+    """
+    Normalizes the data to values between 0 and 1
+    :param data:
+    :return:
+    """
+    max = data[0]
+
+    for d in data:
+        if d > max:
+            max = d
+
+    new_list = []
+    for d in data:
+        new_list.append(max / d)
+
+    return new_list
+
+
+def avg_around_index(i, c, list):
+    """
+    Square averages the values around i +/- c
+
+    :param i:
+    :param list:
+    :return: (average, x) where x is the index which had the highest value
+    """
+
+    start_i = i - c
+    end_i = i + c # inclusive
+
+    if start_i < 0:
+        start_i = 0
+    if end_i >= len(list):
+        end_i = len(list) - 1
+
+    max_i = start_i
+    sum = 0
+    for x in range(start_i, end_i + 1):
+        sum += list[x] ** 2
+        if list[x] >= list[max_i]:
+            max_i = x
+
+    return sum / (end_i - start_i + 1), max_i
+
+
+
+
