@@ -60,7 +60,7 @@ def compute_beat_with_impulse_trains(wave, periods):
     for period in periods:
         impulse_train = generate_impulse_train(period, N)
         impulse_train_fft = np.fft.fft(impulse_train)
-        correlation = correlation_energy(wav_fft, impulse_train_fft) * mean_squared_error(wav_fft, impulse_train_fft)
+        correlation = pearsons_product_moment(wav_fft, impulse_train_fft) #correlation_energy(wav_fft, impulse_train_fft) * mean_squared_error(wav_fft, impulse_train_fft)
         correlations.append(correlation)
 
     # we need to equalize the correlations as they will tend to trend linearly upward as the period decreases
@@ -164,10 +164,13 @@ def main(args):
     start = int(len(amp_data) * 0.1)
     end = start + int(44100 * 60) # 15 seconds
     # cuts off the extra samples at the end.
-    nthIndex = range(start, end - ((end - start) % SAMPLE_PACK_SIZE), SAMPLE_PACK_SIZE)
+    nthIndex = range(start, end, SAMPLE_PACK_SIZE)
 
     for i in nthIndex:
         sample_pack = amp_data[i:i + SAMPLE_PACK_SIZE]
+
+        if len(sample_pack) != SAMPLE_PACK_SIZE:
+            continue
 
         # calculate the instance energy (squared) of this sample pack
         energy = tools.average(tools.squared(sample_pack), isLR=True)
@@ -244,7 +247,7 @@ if __name__ == "__main__":
 
     for file in allFiles:
         print file
-        #if "Foolskape - Counting.wav" in file:
+        #if "1FM30" in file:
         main([folder + file])
 
     #main(sys.argv[1:])
