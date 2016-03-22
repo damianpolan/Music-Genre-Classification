@@ -38,6 +38,18 @@ def squared(ilist, isLR=False):
     return new_list
 
 
+def into_mono(sample_pack):
+    """
+     data = time domain data in list format. Each element in the list should be an array of length two with each subelement being the left/right (stereo) sample.
+
+    output:
+        list of sample data in mono format. Each element is the sum of the left/right sample
+    :param sample_pack:
+    :return:
+    """
+    return [pair[0] + pair[1] for pair in sample_pack]
+
+
 def standard_dev(ilist, avg):
     if not avg: #calculate average if its not already calculated
         avg = average(ilist)

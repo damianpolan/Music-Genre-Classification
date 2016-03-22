@@ -63,11 +63,4 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="Python 2.7.9 virtualenv at ~/Music-Genre-Classification/ENV" project-jdk-type="Python SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <console-settings sdk-home="$USER_HOME$/Programming/BPM/Custom_Beat_Detection/beatenv/bin/python2.7">
-        <option name="mySdkHome" value="$USER_HOME$/Programming/BPM/Custom_Beat_Detection/beatenv/bin/python2.7" />
-      </console-settings>
-    </option>
-  </component>
 </project>

@@ -33,7 +33,7 @@ class IdentifyController < ApplicationController
 
       if rec.save
         # saved so continue with the classification
-        cmd_s = "source /home/damian/Music-Genre-Classification/ENV/bin/activate;/home/damian/Music-Genre-Classification/ENV/bin/python2.7 /home/damian/Music-Genre-Classification/MGC-source/lib/classification/SVM_classify.py #{save_path}"
+        cmd_s = "source /home/damian/Music-Genre-Classification/ENV/bin/activate;/home/damian/Music-Genre-Classification/ENV/bin/python2.7 /home/damian/Music-Genre-Classification/MGC-Source/mgc/trained/SVM_classify.py #{save_path}"
         puts cmd_s
         result = %x( #{cmd_s} )
         puts result

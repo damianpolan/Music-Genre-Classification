@@ -196,7 +196,7 @@ class Controller:
 
     def fetchSongData(self, song_id):
         self.cur.execute("SELECT file_path FROM Songs WHERE song_id=%s", (song_id,))
-        file_path = self.cur.fetchone()[0]
+
 
         amp_data, fs, enc = wavread(file_path)
         return amp_data

@@ -6,6 +6,8 @@ import os
 import sys
 import feature
 from mgc.tools import logs
+from training import TrainingSet
+import re
 
 
 class DatabaseService:
@@ -33,6 +35,10 @@ class DatabaseService:
         self.conn = mysql.connector.connect(host=host, database=database, user=user, password=password)
         self.cur = self.conn.cursor()
 
+        self.cached_song = dict()
+        self.cached_song['file_path'] = None
+        self.cached_song['pcm_data'] = None
+
         # self.__drop_all()
         self.__create_tables()
         self.__commit()
@@ -52,7 +58,7 @@ class DatabaseService:
         # ADD ALL REQUIRED TABLES
         self.cur.execute("CREATE TABLE IF NOT EXISTS Songs(\
                             song_id int AUTO_INCREMENT,\
-                            file_path varchar(255),\
+                            file_path varchar(1024),\
                             PRIMARY KEY (song_id)\
                             )")
 
@@ -74,6 +80,50 @@ class DatabaseService:
 
     def __commit(self):
         self.conn.commit()
+
+    def __get_training_song_ids(self, genres, max_set_size):
+        """
+            Gets a list of database song_id's which match at least one genre in genres.
+
+            genres: array of genre names.
+            maxSetSize: the maximum amount of training samples per genre. -1 for no limit.
+
+            returns:
+                dict object with format:
+                {
+                    genre0: [ song_id list for genre0]
+                    genre1: [ song_id list for genre1]
+                    ...
+                    genreN: [ song_id list for genreN]
+                }
+
+            Example:
+                database.getTrainingSet(['dubstep', 'house'], 100)
+                ^ will return a list containing 50 elements of each genre
+        :param genres:
+        :param max_set_size:
+        :return:
+        """
+
+        if not isinstance(genres, list):
+            raise "Genres must be a list of strings. i.e: ['house', 'trance']"
+
+        song_dict = {}
+
+        query = "SELECT song_id FROM Genres WHERE genre=%s"
+
+        for genre in genres:
+            if(max_set_size >= 0):
+                self.cur.execute(query + " LIMIT %s", (genre, max_set_size))
+            else:
+                self.cur.execute(query, (genre,))
+
+            song_dict[genre] = []
+            results = self.cur.fetchall()
+            for result in results:
+                song_dict[genre].append(result[0])
+
+        return song_dict
 
     ####################################################
     #   PUBLIC METHODS
@@ -133,66 +183,49 @@ class DatabaseService:
         """
         self.cur.execute("SELECT file_path FROM Songs WHERE song_id=%s", (song_id,))
         file_path = self.cur.fetchone()[0]
-        pcm_data, fs, enc = wavread(file_path)
 
-        if fs != 44100:
-            raise "Sample rate not 44100."
+        if self.cached_song['file_path'] != file_path:
+            pcm_data, fs, enc = wavread(file_path)
 
-        return pcm_data
+            if len(pcm_data) == 0:
+                raise "Could not read pcm data from wave file."
 
-    def get_training_set(self, genres, max_set_size):
-        """
-            Gets a list of database song_id's which match at least one genre in genres.
+            self.cached_song['file_path'] = file_path
+            self.cached_song['pcm_data'] = pcm_data
 
-            genres: array of genre names.
-            maxSetSize: the maximum amount of training samples per genre. -1 for no limit.
+            if fs != 44100:
+                raise "Sample rate not 44100."
+            return pcm_data
+        else:
+            return self.cached_song['pcm_data']
 
-            returns:
-                dict object with format:
-                {
-                    genre0: [ song_id list for genre0]
-                    genre1: [ song_id list for genre1]
-                    ...
-                    genreN: [ song_id list for genreN]
-                }
+    def get_training_set(self, genres, feature_names, max_set_size, verbose=False):
+        genre_song_ids = self.__get_training_song_ids(genres, max_set_size)
 
-            Example:
-                database.getTrainingSet(['dubstep', 'house'], 100)
-                ^ will return a list containing 50 elements of each genre
-        :param genres:
-        :param max_set_size:
-        :return:
-        """
+        classes = []
+        feature_sets = []
+        for genre, song_ids in genre_song_ids.iteritems():
+            logging.debug("Getting songs for " + genre)
+            feature_sets_for_genre = []
+            for song_id in song_ids:
+                features_for_song = []
+                for feature_name in feature_names:
+                    f_value = self.get_feature_value(feature_name, song_id, verbose=verbose)
+                    features_for_song.append(f_value)
+                feature_sets_for_genre.append(features_for_song)
 
-        if not isinstance(genres, list):
-            raise "Genres must be a list of strings. i.e: ['house', 'trance']"
+            classes.append(genre)
+            feature_sets.append(feature_sets_for_genre)
 
-        song_dict = {}
+        return TrainingSet(classes, feature_sets)
 
-        query = "SELECT song_id FROM Genres WHERE genre=%s"
-
-        for genre in genres:
-            if(max_set_size >= 0):
-                self.cur.execute(query + " LIMIT %s", (genre, max_set_size))
-            else:
-                self.cur.execute(query, (genre,))
-
-            song_dict[genre] = []
-            results = self.cur.fetchall()
-            for result in results:
-                song_dict[genre].append(result[0])
-
-        return song_dict
-
-    def get_feature_value(self, feature_name, song_id):
+    def get_feature_value(self, feature_name, song_id, verbose=False):
         """
 
         :param feature_name:
         :param song_id:
         :return:
         """
-
-        logging.debug("Getting: song_id=" + str(song_id) + ":  " + feature_name)
 
         class_ = getattr(feature, feature_name)  # prepare the class for instantiation
         feature_instance = class_()
@@ -202,20 +235,58 @@ class DatabaseService:
         row = self.cur.fetchone()
 
         if row and row[0] == feature_instance.version:
-            return row[1]
+            f_value = row[1]
+
+            if verbose:
+                logging.debug("song_id " + str(song_id) + ": Getting " + feature_name + " = " + str(f_value))
+            return f_value
         else:
             # compute the feature and replace the existing row if there is one
 
-            logging.debug("Feature data not found for current Feature version. Calculating...")
+            if verbose:
+                logging.debug("song_id " + str(song_id) + ": " +
+                          feature_name + " not found for current version. Calculating...")
 
             pcm_data = self.get_song_pcm_data(song_id)
             f_value = feature_instance.calculate(pcm_data)
 
+            if verbose:
+                logging.debug("song_id " + str(song_id) + ": " + feature_name + " = " + str(f_value))
+
             self.cur.execute("INSERT INTO Features (song_id, feature_name, version, f_value) VALUES (%s, %s, %s, %s) \
                               ON DUPLICATE KEY UPDATE version=%s, f_value=%s",
-                             (song_id, feature_name, feature_instance.version, f_value,
-                              feature_instance.version, f_value))
+                             (song_id, feature_name, feature_instance.version, float(f_value),
+                              feature_instance.version, float(f_value)))
             self.__commit()
+
+    def delete_song(self, song_id):
+        self.cur.execute("DELETE FROM Features WHERE song_id=%s", (song_id,))
+        self.cur.execute("DELETE FROM Genres WHERE song_id=%s", (song_id,))
+        self.cur.execute("DELETE FROM Songs WHERE song_id=%s", (song_id,))
+        self.__commit()
+
+    def get_features_for_song(self, file_path, feature_list):
+        """
+        Computes each of the features (must be full_song features) for the song recording.
+        This method is used for one shot computation of a songs features.
+        :param file_path:
+        :param feature_list:
+        :return: a tuple of values with length = len(features). Each item is the resulting feature value corresponding to features[].
+        """
+
+        # will hold the evaluated feature values
+        feature_values = []
+
+        pcm_data, fs, enc = wavread(file_path)
+
+        for feature_name in feature_list:
+            # print "Computing " + feature_name
+            class_ = getattr(feature, feature_name)
+            feature_instance = class_()
+            f_value = feature_instance.calculate(pcm_data)
+            feature_values.append(f_value)
+
+        return tuple(feature_values)
 
 
 def main(argv):
@@ -243,6 +314,8 @@ def main(argv):
     # Multi genre:
     # python database.py add ~/Music/Dubstep/somesong.wav dubstep dnb progressive
     #
+    :param argv:
+    :return:
 
     """
     # logging.basicConfig(level=logging.DEBUG)
@@ -287,7 +360,11 @@ def main(argv):
             for file in all_files:
                 filename, extension = os.path.splitext(file)
                 if extension in supported_ext:
-                    all_wavs.append(file)
+                    # rename the file to remove special characters
+                    oldpath = abs_path + '/' + filename + extension
+                    newpath = abs_path + '/' + re.sub('[^\w\.\-]+', ' ', filename) + extension
+                    os.rename(oldpath, newpath)
+                    all_wavs.append(newpath)
 
             count = 0
             db_control = DatabaseService()
@@ -304,20 +381,31 @@ def main(argv):
             print "required param type for clear. Types: 'songs', 'features'"
             return
 
+        db_control = DatabaseService()
+
         ctype = argv[1]
         if ctype == "songs":
-            db_control = DatabaseService()
             db_control.delete_all_songs()
         elif ctype == "features":
-            db_control = DatabaseService()
             db_control.delete_all_features()
         else:
-            print "unknown clear param " + ctype
+            db_control.delete_song(ctype)
 
     return
 
-
 if __name__ == "__main__":
+    # main(['add', '/media/damian/Windows7_OS/Users/Damian/OneDrive/Music/ClassicalOutput', '-1', 'classical'])
+    # main(['add', '/media/damian/Windows7_OS/Users/Damian/OneDrive/Music/JazzOutput', '-1', 'jazz'])
+    # main(['add', '/media/damian/Windows7_OS/Users/Damian/OneDrive/Music/OperaOutput', '-1', 'opera'])
+    # main(['add', '/media/damian/Windows7_OS/Users/Damian/OneDrive/Music/ReggaeOutput', '-1', 'reggae'])
+    # main(['add', '/media/damian/Windows7_OS/Users/Damian/OneDrive/Music/ClassicRockOutput', '-1', 'rock'])
+    # main(['add', '/media/damian/Windows7_OS/Users/Damian/OneDrive/Music/HouseOutput', '-1', 'house'])
+    # main(['add', '/media/damian/Windows7_OS/Users/Damian/OneDrive/Music/HipHopOutput', '-1', 'hip hop'])
+
+
+    # main (['clear', 'features'])
+    # main (['clear', 'songs'])
+    #main (['clear', '4389'])
     main(sys.argv[1:])
 
 

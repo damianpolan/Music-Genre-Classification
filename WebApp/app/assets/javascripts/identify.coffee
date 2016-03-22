@@ -7,7 +7,7 @@
 
 
 #Total recording time
-RECORD_TIME = 1000
+RECORD_TIME = 10000
 recording = false;
 
 document.recordAndIdentify = () -> (

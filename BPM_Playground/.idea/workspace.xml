@@ -20,7 +20,7 @@
     <SUITE FILE_PATH="coverage/BPM_Playground$BeatToBPM.coverage" NAME="BeatToBPM Coverage Results" MODIFIED="1456936563036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/BPM_Playground$detectbeat_1f.coverage" NAME="detectbeat_1f Coverage Results" MODIFIED="1457036448931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/BPM_Playground$detectbeat_multi_f.coverage" NAME="detectbeat_multi_f Coverage Results" MODIFIED="1457036640435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/BPM_Playground$Beat_Detect_Final.coverage" NAME="Beat_Detect_Final Coverage Results" MODIFIED="1457227162973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Final" />
+    <SUITE FILE_PATH="coverage/BPM_Playground$Beat_Detect_Final.coverage" NAME="Beat_Detect_Final Coverage Results" MODIFIED="1457721217100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Final" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -31,36 +31,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Beat_Detect_Final.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Beat_Detect_Final.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Final/Beat_Detect_Final.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="227" column="21" selection-start-line="227" selection-start-column="21" selection-end-line="227" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.35347986">
+              <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#288#525#0" expanded="false" />
+                <element signature="e#288#370#1" expanded="false" />
+                <element signature="e#616#859#0" expanded="false" />
+                <element signature="e#616#701#1" expanded="false" />
+                <element signature="e#920#1141#1" expanded="false" />
+                <element signature="e#1389#1585#1" expanded="false" />
+                <element signature="e#2895#3461#0" expanded="false" />
+                <element signature="e#2895#3160#1" expanded="false" />
+                <element signature="e#3509#3628#1" expanded="false" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cosmic Gate - Fire Wire (Back 2 the Future Dub Mix).wav_graph.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/graphs/Cosmic Gate - Fire Wire (Back 2 the Future Dub Mix).wav_graph.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Corderoy - Kyrie (Club Dub Mix).wav_graph.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/graphs/Corderoy - Kyrie (Club Dub Mix).wav_graph.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BT - Mercury &amp; Solace.wav_graph.png" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/graphs/BT - Mercury &amp; Solace.wav_graph.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -68,9 +55,19 @@
         <entry file="file://$PROJECT_DIR$/Final/tools.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="11" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="11" />
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
-                <element signature="e#1#11#0" expanded="true" />
+                <element signature="e#549#927#0" expanded="false" />
+                <element signature="e#549#721#1" expanded="false" />
+                <element signature="e#1370#1585#0" expanded="false" />
+                <element signature="e#1620#1906#0" expanded="false" />
+                <element signature="e#1987#2422#0" expanded="false" />
+                <element signature="e#1987#2359#1" expanded="false" />
+                <element signature="e#2454#3218#0" expanded="false" />
+                <element signature="e#2454#2740#1" expanded="false" />
+                <element signature="e#3246#3337#1" expanded="false" />
+                <element signature="e#3548#4066#0" expanded="false" />
+                <element signature="e#3548#3712#1" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -118,10 +115,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="669" />
-    <option name="y" value="24" />
-    <option name="width" value="1225" />
-    <option name="height" value="1056" />
+    <option name="x" value="64" />
+    <option name="y" value="-4" />
+    <option name="width" value="1857" />
+    <option name="height" value="1085" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -167,9 +164,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -218,6 +212,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1029,32 +1026,35 @@
       <workItem from="1457121617123" duration="3324000" />
       <workItem from="1457131859742" duration="724000" />
       <workItem from="1457227034176" duration="926000" />
+      <workItem from="1457657648231" duration="1907000" />
+      <workItem from="1457659806013" duration="796000" />
+      <workItem from="1457720070317" duration="1793000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62573000" />
+    <option name="totallyTimeSpent" value="67069000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="669" y="24" width="1225" height="1056" extended-state="4" />
+    <frame x="64" y="-4" width="1857" height="1085" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22365591" sideWeight="0.41546303" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39955604" sideWeight="0.41865358" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22365591" sideWeight="0.58453697" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39937434" sideWeight="0.58134645" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11612903" sideWeight="0.49749374" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41631266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20176893" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12050209" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4139785" sideWeight="0.49433106" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41397288" sideWeight="0.49433106" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1083,7 +1083,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="50" />
+      <option name="time" value="59" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1103,7 +1103,71 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/Beat_Detect_Final.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="215" column="28" selection-start-line="215" selection-start-column="28" selection-end-line="215" selection-end-column="28" />
+          <folding>
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#549#927#0" expanded="false" />
+            <element signature="e#549#721#1" expanded="false" />
+            <element signature="e#1370#1585#0" expanded="false" />
+            <element signature="e#1620#1906#0" expanded="false" />
+            <element signature="e#1987#2422#0" expanded="false" />
+            <element signature="e#1987#2359#1" expanded="false" />
+            <element signature="e#2454#3218#0" expanded="false" />
+            <element signature="e#2454#2740#1" expanded="false" />
+            <element signature="e#3246#3337#1" expanded="false" />
+            <element signature="e#3548#4066#0" expanded="false" />
+            <element signature="e#3548#3712#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/Beat_Detect_Final.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="227" column="21" selection-start-line="227" selection-start-column="21" selection-end-line="227" selection-end-column="21" />
+          <folding>
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1113,7 +1177,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="11" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="11" />
           <folding>
-            <element signature="e#1#11#0" expanded="true" />
+            <element signature="e#549#927#0" expanded="false" />
+            <element signature="e#549#721#1" expanded="false" />
+            <element signature="e#1370#1585#0" expanded="false" />
+            <element signature="e#1620#1906#0" expanded="false" />
+            <element signature="e#1987#2422#0" expanded="false" />
+            <element signature="e#1987#2359#1" expanded="false" />
+            <element signature="e#2454#3218#0" expanded="false" />
+            <element signature="e#2454#2740#1" expanded="false" />
+            <element signature="e#3246#3337#1" expanded="false" />
+            <element signature="e#3548#4066#0" expanded="false" />
+            <element signature="e#3548#3712#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1123,7 +1197,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1133,7 +1215,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="11" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="11" />
           <folding>
-            <element signature="e#1#11#0" expanded="true" />
+            <element signature="e#549#927#0" expanded="false" />
+            <element signature="e#549#721#1" expanded="false" />
+            <element signature="e#1370#1585#0" expanded="false" />
+            <element signature="e#1620#1906#0" expanded="false" />
+            <element signature="e#1987#2422#0" expanded="false" />
+            <element signature="e#1987#2359#1" expanded="false" />
+            <element signature="e#2454#3218#0" expanded="false" />
+            <element signature="e#2454#2740#1" expanded="false" />
+            <element signature="e#3246#3337#1" expanded="false" />
+            <element signature="e#3548#4066#0" expanded="false" />
+            <element signature="e#3548#3712#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1143,7 +1235,53 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="11" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="11" />
+          <folding>
+            <element signature="e#549#927#0" expanded="false" />
+            <element signature="e#549#721#1" expanded="false" />
+            <element signature="e#1370#1585#0" expanded="false" />
+            <element signature="e#1620#1906#0" expanded="false" />
+            <element signature="e#1987#2422#0" expanded="false" />
+            <element signature="e#1987#2359#1" expanded="false" />
+            <element signature="e#2454#3218#0" expanded="false" />
+            <element signature="e#2454#2740#1" expanded="false" />
+            <element signature="e#3246#3337#1" expanded="false" />
+            <element signature="e#3548#4066#0" expanded="false" />
+            <element signature="e#3548#3712#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/Beat_Detect_Final.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1153,7 +1291,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="16" selection-start-line="48" selection-start-column="15" selection-end-line="48" selection-end-column="16" />
           <folding>
-            <element signature="e#1#11#0" expanded="true" />
+            <element signature="e#549#927#0" expanded="false" />
+            <element signature="e#549#721#1" expanded="false" />
+            <element signature="e#1370#1585#0" expanded="false" />
+            <element signature="e#1620#1906#0" expanded="false" />
+            <element signature="e#1987#2422#0" expanded="false" />
+            <element signature="e#1987#2359#1" expanded="false" />
+            <element signature="e#2454#3218#0" expanded="false" />
+            <element signature="e#2454#2740#1" expanded="false" />
+            <element signature="e#3246#3337#1" expanded="false" />
+            <element signature="e#3548#4066#0" expanded="false" />
+            <element signature="e#3548#3712#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1177,7 +1325,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1187,7 +1343,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
           <folding>
-            <element signature="e#1#11#0" expanded="true" />
+            <element signature="e#549#927#0" expanded="false" />
+            <element signature="e#549#721#1" expanded="false" />
+            <element signature="e#1370#1585#0" expanded="false" />
+            <element signature="e#1620#1906#0" expanded="false" />
+            <element signature="e#1987#2422#0" expanded="false" />
+            <element signature="e#1987#2359#1" expanded="false" />
+            <element signature="e#2454#3218#0" expanded="false" />
+            <element signature="e#2454#2740#1" expanded="false" />
+            <element signature="e#3246#3337#1" expanded="false" />
+            <element signature="e#3548#4066#0" expanded="false" />
+            <element signature="e#3548#3712#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1269,13 +1435,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../MGC-source/lib/fingerprints/database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="323" column="26" selection-start-line="323" selection-start-column="26" selection-end-line="323" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testsong.wav_graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1318,13 +1477,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../MGC-source/lib/fingerprints/database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.026666667">
-          <caret line="323" column="26" selection-start-line="323" selection-start-column="26" selection-end-line="323" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -1387,36 +1539,44 @@
     <entry file="file://$PROJECT_DIR$/Final/tools.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="11" />
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#1#11#0" expanded="true" />
+            <element signature="e#549#927#0" expanded="false" />
+            <element signature="e#549#721#1" expanded="false" />
+            <element signature="e#1370#1585#0" expanded="false" />
+            <element signature="e#1620#1906#0" expanded="false" />
+            <element signature="e#1987#2422#0" expanded="false" />
+            <element signature="e#1987#2359#1" expanded="false" />
+            <element signature="e#2454#3218#0" expanded="false" />
+            <element signature="e#2454#2740#1" expanded="false" />
+            <element signature="e#3246#3337#1" expanded="false" />
+            <element signature="e#3548#4066#0" expanded="false" />
+            <element signature="e#3548#3712#1" expanded="false" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graphs/Scope_Dj_-_Locked_Down_Again_The_Prophet_Remix_SCA.wav_graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Final/Beat_Detect_Final.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="227" column="21" selection-start-line="227" selection-start-column="21" selection-end-line="227" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.35347986">
+          <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#288#525#0" expanded="false" />
+            <element signature="e#288#370#1" expanded="false" />
+            <element signature="e#616#859#0" expanded="false" />
+            <element signature="e#616#701#1" expanded="false" />
+            <element signature="e#920#1141#1" expanded="false" />
+            <element signature="e#1389#1585#1" expanded="false" />
+            <element signature="e#2895#3461#0" expanded="false" />
+            <element signature="e#2895#3160#1" expanded="false" />
+            <element signature="e#3509#3628#1" expanded="false" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graphs/Cosmic Gate - Fire Wire (Back 2 the Future Dub Mix).wav_graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graphs/Corderoy - Kyrie (Club Dub Mix).wav_graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graphs/BT - Mercury &amp; Solace.wav_graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
   </component>

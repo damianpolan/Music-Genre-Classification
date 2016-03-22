@@ -1,0 +1,54 @@
+Test 1
+hits: 61/80 - 0.762
+	house - 0.81
+	jazz - 0.56
+	hip hop - 0.69
+	classical - 0.94
+	rock - 0.81
+
+Test 2
+hits: 65/80 - 0.812
+	house - 0.75
+	jazz - 0.62
+	hip hop - 0.88
+	classical - 0.94
+	rock - 0.88
+
+Test 3
+hits: 62/80 - 0.775
+	house - 0.62
+	jazz - 0.56
+	hip hop - 0.75
+	classical - 1.00
+	rock - 0.94
+
+Test 4
+hits: 60/80 - 0.750
+	house - 0.62
+	jazz - 0.62
+	hip hop - 0.75
+	classical - 1.00
+	rock - 0.75
+
+Test 5
+hits: 62/80 - 0.775
+	house - 0.75
+	jazz - 0.69
+	hip hop - 0.62
+	classical - 1.00
+	rock - 0.81
+
+Test 6
+hits: 75/100 - 0.750
+	house - 0.65
+	jazz - 0.60
+	hip hop - 0.65
+	classical - 1.00
+	rock - 0.85
+
+Total samples: 500
+Training/Validation: 420 / 80
+Average hit rate: %77.08
+
+
+Poly, degree = 2:

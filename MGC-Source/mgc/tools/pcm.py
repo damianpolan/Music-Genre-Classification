@@ -1,10 +1,13 @@
 
 import numpy as np
+import stats
 
 
 def to_sample_packs(pcm_data, sample_pack_size):
+    sample_packs = []
     for i in range(0, len(pcm_data) - sample_pack_size, sample_pack_size):
-        yield pcm_data[i:pcm_data + sample_pack_size]
+        sample_packs.append(pcm_data[i:i + sample_pack_size])
+    return sample_packs
 
 
 def into_mono(sample_pack):
@@ -63,14 +66,14 @@ def centroid(pcm_data):
     :param pcm_data: time domain data
     :return: centroid value as float
     """
-    freq_data = into_freq_domain(into_mono(pcm_data))
+    freq_data = into_freq_domain(pcm_data)
 
     sum_fm = 0
     sum_m = 0
-    for cbin in range(0, len(freq_data)):
-        f = frequency_at_fft_index(cbin, len(freq_data))
-        sum_fm += f * freq_data[cbin]  # f * M(f)
-        sum_m += freq_data[cbin]  # M(f)
+    for c_bin in range(0, len(freq_data)):
+        f = frequency_at_fft_index(c_bin, len(freq_data))
+        sum_fm += f * freq_data[c_bin]  # f * M(f)
+        sum_m += freq_data[c_bin]  # M(f)
 
     # handle the divide by zero case!
     if sum_m != 0:
@@ -79,3 +82,42 @@ def centroid(pcm_data):
         centr = 0
 
     return centr
+
+
+def roll_off(pcm_data):
+    freq_data = into_freq_domain(pcm_data)
+
+    sum_m_total = 0
+    for c_bin in range(0, len(freq_data)):
+        sum_m_total += freq_data[c_bin]  # M(f)
+
+    sum_m_target = 0.85 * sum_m_total
+    sum_m_new = 0
+    r = 0
+    for c_bin in range(0, len(freq_data)):
+        sum_m_new += freq_data[c_bin]  # M(f)
+        r += 1
+        if sum_m_new > sum_m_target:
+            break
+    return r
+
+
+def spectral_flux(pack1, pack2):
+    """
+    Calculates the average of spectral flux difference between two sample packs.
+
+    The temporal location of pack1 should be before that of pack2.
+
+    :param pack1: (i-1)th sample pack
+    :param pack2: (i)th sample pack
+    :return:
+    """
+
+    fft1 = into_freq_domain(pack1)
+    fft2 = into_freq_domain(pack2)
+    fluxes = list()
+
+    for i in range(len(fft1)):
+        fluxes.append(pow(fft2[i] - fft1[i], 2))
+
+    return stats.average(fluxes)
